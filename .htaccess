@@ -1,0 +1,53 @@
+AddHandler application/x-httpd-ea-php74 .php
+
+#AddHandler php70-fcgi .php
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} swigappmanager.com [NC]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.swigappmanager.com/$1 [R,L]
+
+#Header set Access-Control-Allow-Origin "*"
+#Header set Access-Control-Allow-Methods: "*"
+
+IndexIgnore *
+
+#RewriteRule ^add-user-account.php$ add-edit-user-account.php?process=NEW [NC,L]
+
+RewriteRule ^users/?$ manage_apis/manage_users/users.php [NC,L]
+RewriteRule ^sendinquiryinfo/?$ manage_apis/feed/v1/contact_info.php [NC,L]
+RewriteRule ^sendguestticketrequests/?$ manage_apis/feed/v1/guest_ticket_requests.php [NC,L]
+RewriteRule ^getpaymentinfo/?$ manage_apis/feed/v1/get_payment_info.php [NC,L]
+RewriteRule ^manageticketcode/?$ manage_apis/feed/v1/manage_ticket_code.php [NC,L]
+RewriteRule ^capturestripepayment/?$ manage_apis/feed/v1/stripe_payment/create_stripe_charge.php [NC,L]
+RewriteRule ^capturestripepaymenttest/?$ manage_apis/feed/v1/stripe_payment/create_stripe_charge_test.php [NC,L]
+RewriteRule ^resendticketcode/?$ manage_apis/feed/v1/resend-code-user.php [NC,L]
+RewriteRule ^sendcontactemail/?$ manage_apis/feed/v1/send_email/send_support_email.php [NC,L]
+RewriteRule ^managestreamevents/?$ manage_apis/feed/v1/manage_stream_events.php [NC,L]
+RewriteRule ^capture_stripe_payment/?$ manage_apis/stripe_payment/create_stripe_charge.php [NC,L]
+RewriteRule ^users/([a-f0-9]{32})/?$ manage_apis/manage_users/users.php?userCode=$1 [NC,L] 
+RewriteRule ^sendswigitletter/?$ manage_apis/feed/v1/send_email/swigitletter.php [NC,L]
+RewriteRule ^sendswigitplusletter/?$ manage_apis/feed/v1/send_email/swigitplus_letter.php [NC,L]
+RewriteRule ^getbundles/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/?$ manage_apis/manage_bundles/manage_bundles.php?appDomain=$1&dataOption=$2 [NC,L]
+RewriteRule ^getbundleswigits/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/?$ manage_apis/manage_bundles/manage_bundle_swigits.php?appDomain=$1&bundlePermalink=$2 [NC,L]
+
+
+RewriteRule ^feed/v1/([a-f0-9]{32})/?$ manage_apis/feed/v1/feed.php?appCode=$1 [NC,L] 
+
+RewriteRule ^feed/v1_2/([a-f0-9]{32})/?$ manage_apis/feed/v1/v1_2-feed.php?appCode=$1 [NC,L]
+RewriteRule ^feed/v1_1/([a-f0-9]{32})/?$ manage_apis/feed/v1/v1_1-feed.php?appCode=$1 [NC,L] 
+RewriteRule ^feed/v1/search?$ manage_apis/feed/v1/search.php [NC,L] 
+RewriteRule ^feed/v1/stream_detail/([a-f0-9]{32})/([a-f0-9]{32})/([a-f0-9]{32})/?$ manage_apis/feed/v1/stream-detail.php?streamCode=$1&menuCode=$2&userCode=$3 [NC,L]
+RewriteRule ^feed/v1/stream_detail_v2/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/?$ manage_apis/feed/v1/stream-detail-v2.php?appDomain=$1&streamTitle=$2 [NC,L]
+RewriteRule ^feed/v1/p2p_heartbeat$ manage_apis/feed/v1/p2p_heartbeat.php [NC,L] 
+
+#RewriteRule ^feed/v1/search/?([a-f0-9]{32})(/[A-Za-z0-9_.]?)?$ manage_apis/feed/v1/search.php?appCode=$1&keyword=$2 [L] 
+#RewriteRule ^/?([a-zA-Z]+)(/([a-zA-Z]+)(/([0-9]+))?)?$ manage_apis/feed/v1/search.php?controller=$1&action=$3&id=$5 [L] 
+#RewriteRule ^([^/]+)/([^/]+)$ index.php?p=$1&sp=$2 [L]
+
+#mysite.com/news/delete/34
+#RewriteRule ^/?([a-zA-Z]+)(/([a-zA-Z]+)(/([0-9]+))?)?$ index.php?controller=$1&action=$3&id=$5 [L] 
+
+ErrorDocument 404 /404page.php
+ErrorDocument 405 /405page.php

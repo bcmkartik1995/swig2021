@@ -1,0 +1,56 @@
+[26-Oct-2021 17:56:15 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1044): Access denied for user 'swigmedi_samgr'@'localhost' to database 'swigmedi_swigappmanager' in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[26-Oct-2021 17:56:15 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[26-Oct-2021 17:57:52 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[26-Oct-2021 17:57:52 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[26-Oct-2021 17:57:53 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[26-Oct-2021 17:57:53 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[26-Oct-2021 20:26:07 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:26:07 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:26:07 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:26:41 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:26:47 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:26:56 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:27:12 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:27:57 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 09:58:42 America/Chicago] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:28:45 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[08-Nov-2021 05:36:41 Asia/Kolkata] PHP Warning:  Illegal string offset 'emailSubject' in /home1/swigmedia/public_html/swigappmanager.com/cron-live-event-email-notification-before-15-mins-celebration.php on line 66
+[08-Nov-2021 05:36:41 Asia/Kolkata] PHP Warning:  Illegal string offset 'strBody' in /home1/swigmedia/public_html/swigappmanager.com/cron-live-event-email-notification-before-15-mins-celebration.php on line 66
+[08-Nov-2021 05:36:41 Asia/Kolkata] PHP Warning:  Illegal string offset 'appFromEmailTxt' in /home1/swigmedia/public_html/swigappmanager.com/cron-live-event-email-notification-before-15-mins-celebration.php on line 66
+[08-Nov-2021 05:36:41 Asia/Kolkata] PHP Warning:  Illegal string offset 'appNoreplyEmail' in /home1/swigmedia/public_html/swigappmanager.com/cron-live-event-email-notification-before-15-mins-celebration.php on line 66
+[25-Nov-2021 18:40:18 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[25-Nov-2021 18:40:18 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[13-Dec-2021 19:28:49 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[13-Dec-2021 19:28:49 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[28-Jan-2022 10:38:41 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[28-Jan-2022 10:42:05 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[28-Jan-2022 10:44:15 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[28-Jan-2022 15:29:57 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[30-Jan-2022 08:31:15 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[30-Jan-2022 08:31:48 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[04-Feb-2022 13:56:07 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[04-Feb-2022 13:58:03 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[05-Feb-2022 14:07:18 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[05-Feb-2022 14:09:47 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[05-Feb-2022 14:11:16 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[05-Feb-2022 14:31:57 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[05-Feb-2022 15:35:06 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[05-Feb-2022 15:57:31 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[05-Feb-2022 16:15:17 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[05-Feb-2022 16:15:51 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[08-Feb-2022 08:34:12 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[08-Feb-2022 08:35:52 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[08-Feb-2022 08:37:40 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[08-Feb-2022 08:44:56 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[08-Feb-2022 08:47:06 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[08-Feb-2022 08:47:25 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[08-Feb-2022 08:47:54 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[08-Feb-2022 08:52:58 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[14-Feb-2022 21:40:54 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[14-Feb-2022 21:40:54 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[02-Mar-2022 07:21:00 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[02-Mar-2022 07:22:16 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[02-Mar-2022 07:23:16 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[02-Mar-2022 07:24:10 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[09-Mar-2022 13:20:54 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
+[14-Mar-2022 12:02:03 America/Chicago] PHP Warning:  session_regenerate_id(): Cannot regenerate session id - session is not active in /home1/swigmedia/public_html/swigappmanager.com/logout.php on line 6
