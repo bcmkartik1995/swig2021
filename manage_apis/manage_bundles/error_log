@@ -1,0 +1,43 @@
+[13-Feb-2022 20:15:45 America/Chicago] PHP Parse error:  syntax error, unexpected 'default' (T_DEFAULT), expecting end of file in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 204
+[13-Feb-2022 20:20:04 America/Chicago] PHP Parse error:  syntax error, unexpected 'default' (T_DEFAULT), expecting end of file in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 204
+[13-Feb-2022 20:22:19 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 210
+[13-Feb-2022 20:24:44 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 210
+[13-Feb-2022 20:26:48 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 213
+[13-Feb-2022 20:26:51 America/Chicago] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 213
+[13-Feb-2022 20:40:22 America/Chicago] PHP Parse error:  syntax error, unexpected 'default' (T_DEFAULT), expecting end of file in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 206
+[21-Feb-2022 18:12:06 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php:231
+Stack trace:
+#0 {main}
+  thrown in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 231
+[21-Feb-2022 18:12:26 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php:231
+Stack trace:
+#0 {main}
+  thrown in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 231
+[21-Feb-2022 18:13:25 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php:230
+Stack trace:
+#0 {main}
+  thrown in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 230
+[21-Feb-2022 18:15:06 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php:231
+Stack trace:
+#0 {main}
+  thrown in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 231
+[21-Feb-2022 18:23:13 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php:231
+Stack trace:
+#0 {main}
+  thrown in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 231
+[21-Feb-2022 18:24:29 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php:231
+Stack trace:
+#0 {main}
+  thrown in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 231
+[21-Feb-2022 18:26:52 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php:231
+Stack trace:
+#0 {main}
+  thrown in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 231
+[21-Feb-2022 18:32:10 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php:231
+Stack trace:
+#0 {main}
+  thrown in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 231
+[21-Feb-2022 18:32:13 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php:231
+Stack trace:
+#0 {main}
+  thrown in /home1/swigmedia/public_html/swigappmanager.com/manage_apis/manage_bundles/manage_bundles.php on line 231

@@ -1,0 +1,73 @@
+[26-Oct-2021 20:16:18 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:23:06 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:24:22 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:26:57 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:27:15 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:27:29 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[26-Oct-2021 20:28:02 Asia/Kolkata] PHP Parse error:  syntax error, unexpected '!' in /home1/swigmedia/public_html/swigappmanager.com/includes/functions/common.php on line 270
+[01-Nov-2021 13:11:42 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 13:11:43 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 13:11:45 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 13:11:51 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 15:27:59 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 15:28:00 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 15:28:08 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 15:32:52 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 15:34:33 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 15:34:34 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 15:34:35 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[01-Nov-2021 15:34:36 Asia/Kolkata] PHP Warning:  file_get_contents(https://cymtv.com/p2p_api/?id=freestyle_swigit&amp;a=token&amp;ip=203.187.194.220): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/P2PClient.php on line 39
+[10-Nov-2021 00:35:12 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[10-Nov-2021 00:35:12 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[19-Nov-2021 16:52:09 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[19-Nov-2021 16:52:09 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[25-Nov-2021 18:42:31 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[25-Nov-2021 18:42:31 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[09-Dec-2021 19:01:06 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (08004/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[09-Dec-2021 19:01:06 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[09-Dec-2021 19:01:06 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[09-Dec-2021 19:01:06 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[11-Dec-2021 17:49:12 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[11-Dec-2021 17:49:12 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[11-Dec-2021 17:49:15 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[11-Dec-2021 17:49:15 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[11-Dec-2021 18:17:26 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[11-Dec-2021 18:17:26 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[11-Dec-2021 18:26:44 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[11-Dec-2021 18:26:44 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[11-Dec-2021 18:29:56 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[11-Dec-2021 18:29:57 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[11-Dec-2021 18:29:58 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[11-Dec-2021 18:29:58 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[11-Dec-2021 19:45:42 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[11-Dec-2021 19:45:42 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[11-Dec-2021 19:45:43 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[11-Dec-2021 19:45:43 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[13-Dec-2021 19:04:29 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[13-Dec-2021 19:04:29 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[13-Dec-2021 19:10:40 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[13-Dec-2021 19:10:40 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[13-Dec-2021 19:18:24 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[13-Dec-2021 19:18:24 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[13-Dec-2021 19:18:25 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[13-Dec-2021 19:18:25 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[13-Dec-2021 19:24:14 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[13-Dec-2021 19:24:14 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[27-Jan-2022 20:01:16 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[27-Jan-2022 20:01:17 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[27-Jan-2022 20:01:18 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[27-Jan-2022 20:01:18 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47
+[23-Feb-2022 02:44:46 Asia/Kolkata] PHP Warning:  mysqli::__construct(): (HY000/1040): Too many connections in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 36
+[23-Feb-2022 02:44:46 Asia/Kolkata] PHP Warning:  mysqli::close(): Couldn't fetch mysqli in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBAccess.php on line 47

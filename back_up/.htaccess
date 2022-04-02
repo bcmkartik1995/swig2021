@@ -1,0 +1,23 @@
+#AddHandler php70-fcgi .php
+Options +FollowSymLinks
+RewriteEngine on
+
+IndexIgnore *
+
+#RewriteRule ^add-user-account.php$ add-edit-user-account.php?process=NEW [NC,L]
+
+RewriteRule ^users/?$ manage_apis/manage_users/users.php [NC,L]
+RewriteRule ^users/([a-f0-9]{32})/?$ manage_apis/manage_users/users.php?userCode=$1 [NC,L] 
+RewriteRule ^feed/v1/([a-f0-9]{32})/?$ manage_apis/feed/v1/feed.php?appCode=$1 [NC,L] 
+RewriteRule ^feed/v1/search?$ manage_apis/feed/v1/search.php [NC,L] 
+RewriteRule ^feed/v1/stream_detail/([a-f0-9]{32})/([a-f0-9]{32})/([a-f0-9]{32})/?$ manage_apis/feed/v1/stream-detail.php?streamCode=$1&menuCode=$2&userCode=$3 [NC,L]
+
+#RewriteRule ^feed/v1/search/?([a-f0-9]{32})(/[A-Za-z0-9_.]?)?$ manage_apis/feed/v1/search.php?appCode=$1&keyword=$2 [L] 
+#RewriteRule ^/?([a-zA-Z]+)(/([a-zA-Z]+)(/([0-9]+))?)?$ manage_apis/feed/v1/search.php?controller=$1&action=$3&id=$5 [L] 
+#RewriteRule ^([^/]+)/([^/]+)$ index.php?p=$1&sp=$2 [L]
+
+#mysite.com/news/delete/34
+#RewriteRule ^/?([a-zA-Z]+)(/([a-zA-Z]+)(/([0-9]+))?)?$ index.php?controller=$1&action=$3&id=$5 [L] 
+
+ErrorDocument 404 /404page.php
+ErrorDocument 405 /405page.php

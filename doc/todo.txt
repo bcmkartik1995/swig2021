@@ -1,0 +1,98 @@
+<<<<<<<<<<<<<<<<<<-----------06-02-2019----------->>>>>>>>>>>>>>>
+add-edit-stream.php
+view-all-streams.php
+view-all-menus.php
+add-edit-menu.php
+view-all-apps.php
+web-config.php
+.htaccess
+add-edit-sub-category.php
+view-all-sub-categories.php
+
+menu-controller.php
+sub-category-controller.php
+stream-controller.php
+SQL:
+One filed add in tbl_streams 'subCatCode_FK' and db structure of tbl_subcategory
+
+
+ALTER TABLE `tbl_streams` ADD `subCatCode_FK` VARCHAR(32) NOT NULL AFTER `appCode_FK`, ADD INDEX (`subCatCode_FK`);
+
+<<<<<<<<<<<<<<<<<<-----------11-02-2019----------->>>>>>>>>>>>>>>
+ALTER TABLE `tbl_streams` ADD `isDontePerView` CHAR(1) NOT NULL DEFAULT 'N' COMMENT 'Y: Yes, N: No' AFTER `isPremium`, ADD `dontePerViewSelected` INT NULL DEFAULT NULL AFTER `isDontePerView`, ADD `DontePerViewOptn` TEXT NULL DEFAULT NULL AFTER `dontePerViewSelected`;
+ALTER TABLE `tbl_streams` CHANGE `DontePerViewOptn` `dontePerViewOptn` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+stream-detail.php
+get_payment_info.php
+search.php
+v1_1-feed.php
+
+<<<<<<<<<<<<<<<<<<-----------19-02-2019----------->>>>>>>>>>>>>>>
+
+ALTER TABLE `tbl_menus` CHANGE `menuType` `menuType` CHAR(1) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT 'L: Free Live Stream, V: Free VOD Stream, D: DonatePerview Stream, E: DonatePerView Live Event Stream';
+
+
+
+ALTER TABLE `tbl_streams` ADD `eventStDateTime` VARCHAR(50) NOT NULL AFTER `streamOrder`, ADD `eventEndDateTime` VARCHAR(50) NOT NULL AFTER `eventStDateTime`, ADD `timezoneOffset` VARCHAR(100) NOT NULL AFTER `eventEndDateTime`;
+
+
+ALTER TABLE `tbl_streams` CHANGE `eventStDateTime` `eventStDateTime` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL, CHANGE `eventEndDateTime` `eventEndDateTime` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL, CHANGE `timezoneOffset` `timezoneOffset` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+
+
+
+<<<<<<<<<<<<<<<<<<-----------21-02-2019----------->>>>>>>>>>>>>>>
+web-config.php
+fonts/all
+css/all
+js/all
+images/
+
+controller/
+ticket-code-controller.php
+stream-controller.php
+sub-category-controller.php
+left-menubar-admin.php
+left-menubar.php
+footer.php
+header.php
+
+
+functions
+common.php
+
+tbl_contacts
+tbl_ticket_codes 
+tbl_subcategories
+tbl_stream_events
+tbl_pay_per_clicks
+tbl_guest_ticket_requests
+
+---------------------------------------------------------------26-02-2020-------------------------------------------------------
+
+
+INSERT INTO `tbl_email_format` (`emailFormatId_PK`, `subjectAbbr`, `subject`, `body`, `heading`, `rank`) VALUES (NULL, 'app-buy-live-event-ticket', 'Live Event Ticket Code', 'Hello [FNAME],<br><br>Congratulations, You have been buyed ticket successfully.<br><br>\r\n
+Please note your ticket details for future use:<br><br><b>Ticket Code:</b> [TICKET_CODE]<br><b>Event Title:</b> [EVENT_TITLE]<br><b>Event Timing:</b> [EVENT_TIMING]<br><br>\r\n
+[EMAIL_SIGNATURE]', NULL, '0');
+
+INSERT INTO `tbl_email_format` (`emailFormatId_PK`, `subjectAbbr`, `subject`, `body`, `heading`, `rank`) VALUES (NULL, 'app-buy-donate-per-ticket', 'Donate Per View Ticket Code', 'Hello [FNAME],<br><br>Congratulations, You have been buyed ticket successfully.<br><br>\r\nPlease note your ticket details for future use:<br><br><b>Ticket Code:</b> [TICKET_CODE]<br><b>Stream Title:</b> [EVENT_TITLE]<br>]<br> This stream code valid up to [EVENT_TIMING] after activation<br><br>\r\n[EMAIL_SIGNATURE]', NULL, '0');
+
+
+UPDATE `tbl_email_format` SET `body` = 'Hello [FNAME],<br><br>Congratulations, You have been buyed ticket successfully.<br><br>\r\nPlease note your ticket details for future use:<br><br><b>Ticket Code:</b> [TICKET_CODE]<br><b>Stream Title:</b> [EVENT_TITLE]<br><br> This stream code valid up to [EVENT_TIMING] after activation<br><br>\r\n[EMAIL_SIGNATURE]' WHERE `tbl_email_format`.`emailFormatId_PK` = 7;
+
+---------------------------------------------------------------27-02-2020-------------------------------------------------------
+ALTER TABLE `tbl_pay_per_clicks` ADD `isLiveEventBuyed` CHAR(1) NULL DEFAULT NULL AFTER `ticketCode_FK`;
+
+ALTER TABLE `tbl_pay_per_clicks` ADD `ticketCode_FK` VARCHAR(20) NULL DEFAULT NULL AFTER `amount`;
+
+ALTER TABLE `tbl_pay_per_clicks` CHANGE `isLiveEventBuyed` `isLiveEventBuyed` CHAR(1) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'N';
+
+
+ALTER TABLE `tbl_streams` ADD `isDeleted` CHAR(1) NOT NULL DEFAULT 'N' AFTER `status`;
+
+---------------------------------------------------------------05-03-2020-------------------------------------------------------
+ALTER TABLE `tbl_ticket_codes` CHANGE `status` `status` CHAR(1) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT 'N' COMMENT 'N: Not Sell Yet, F: Sold By Offline, O: Sold By Online, G: Guest Ticket Request, T: Testing' 
+
+INSERT INTO `tbl_email_format` (`emailFormatId_PK`, `subjectAbbr`, `subject`, `body`, `heading`, `rank`) VALUES (NULL, 'app-guest-ticket-code-request', 'Guest Ticket Code', 'Hello [FNAME],<br><br>Congratulations, You have been got ticket successfully.<br><br>\r\nPlease note your ticket details for future use:<br><br><b>Ticket Code:</b> [TICKET_CODE]<br><b\r\n[EMAIL_SIGNATURE]', NULL, '0');
+
+UPDATE `tbl_email_format` SET `body` = 'Hello [FNAME],<br><br>Congratulations, You have been gotten ticket successfully.<br><br>\r\nPlease note your ticket details for future use:<br><br><b>Ticket Code:</b> [TICKET_CODE]<br><br>\r\n[EMAIL_SIGNATURE]' WHERE `tbl_email_format`.`emailFormatId_PK` = 8;

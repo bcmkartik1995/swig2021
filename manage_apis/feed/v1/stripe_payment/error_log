@@ -1,0 +1,2 @@
+[01-Nov-2021 03:45:55 Asia/Kolkata] PHP Warning:  trim() expects parameter 1 to be string, array given in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBQuery.php on line 90
+[04-Nov-2021 22:56:46 Asia/Kolkata] PHP Warning:  trim() expects parameter 1 to be string, array given in /home1/swigmedia/public_html/swigappmanager.com/includes/classes/DBQuery.php on line 90
