@@ -627,6 +627,31 @@ function makeDropDown($dropDownName, $optionValueArray, $optionTextArray, $selec
 	echo $str;
 }
 
+function makeDropDownCustom($dropdownId, $dropDownName, $optionValueArray, $optionTextArray, $selectedOptionValue, $mode = '', $style = '', $event = '', $hideShowPlzSelect = 'N')
+{
+	$str  = "<select name = '$dropDownName' id = '$dropdownId' $style $event $mode>";
+	if ($hideShowPlzSelect != 'Y') $str .= "<option value=''>Please Select</option>";
+
+	if(is_array($optionValueArray)) {
+		$numOfRows = count($optionValueArray);
+
+		for ($i = 0; $i < $numOfRows; $i++)
+		{
+			if ($optionValueArray[$i] == $selectedOptionValue) 
+			{
+				$str .= "<option value='" . $optionValueArray[$i] . "' selected>" . htmlspecialchars($optionTextArray[$i]) . "</option>";
+			} 
+			else 
+			{
+				$str .= "<option value='" . $optionValueArray[$i] . "'>" . htmlspecialchars($optionTextArray[$i]) . "</option>";
+			}
+		}
+	}
+
+	$str .= "</select>";
+	echo $str;
+}
+
 //This function returns True if login: swig_tv_fus and password: d80871df367c0c38a2ee1955485a361a are provided
 //Otherwise it returns False
 function checkApiAccess()

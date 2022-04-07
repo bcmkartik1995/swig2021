@@ -49,7 +49,7 @@ $ARR_DONATE_PER_VIEW_OPTN = array(1 => '1$', 2 => '5$', 3 => '10$', 4 => '20$');
 $ARR_TCKT_STATUS = array('N' => 'Not Sell Yet', 'F' => 'Sold By Offline', 'O' => 'Sold By Online', 'G' => 'Guest Ticket Request', 'T' => 'Testing', 'M' => 'Master Code Used');
 //N: Not Sell Yet, F: Sold By Offline, O: Sold By Online, T: Testing
 $LINEAR_PLAYING_METHOD = array('U' => 'URL/VAST Tag', 'D' => 'DAI Key');
-
+$ARR_STREAM_TYPE = array("S" => "single stream", "M" => "multi stream");
 
 $ARR_ACTIVITES = array (
 				'login' => 'Login',

@@ -189,9 +189,15 @@ switch ($accessCase)
 		break;
 
 	case 'updateAction':
+	    
+        if($_POST['stream_type'] != '' && $_POST['stream_type'] == 'M'){
+            $MultiEventdata = $_POST['MultiEvent'];
+        } 
+        unset($_POST['MultiEvent']);
+        unset($_POST['total_chq']);
 		$_POST = trimFormValue(0, $_POST);
 		$enkey = $_POST['enkey'];
-		$appName = $_POST['appName'];
+		//$appName = $_POST['appName'];
 		$headerRedirectUrl = "../add-edit-stream.php?enkey=".$enkey.'&'.$_SESSION['SESSION_QRY_STRING_FOR_STREAM'];
 		
 		if (allowedFIleExten('streamImg'))
@@ -206,6 +212,7 @@ switch ($accessCase)
 		{
 			$msg = '';						
 			$frmKeyExcludeArr = array('submitBtn', 'formToken', 'postAction', 'enkey', 'photo_delete');
+
 			$dataArr = prepareKeyValue4Msql(0, $_POST, $frmKeyExcludeArr);
 			$dataArr['updatedOn'] = date(LONG_MYSQL_DATE_FORMAT);
 			if($dataArr['dontePerViewSelected'] == '')  $dataArr['dontePerViewSelected'] = 1;
@@ -224,6 +231,30 @@ switch ($accessCase)
 				unlinkFile(0, $infoArr[0]['streamThumbnail'], $assetDirName);
 			}
 
+
+			if($dataArr['stream_type'] != '' && $dataArr['stream_type'] == 'M'){
+                $streamInfoArr = $objDBQuery->getRecord(0, array('streamId_PK'), $tblName, array($enckeyDBFldName => $enkey));
+                
+                $objDBQuery->dropRecord(0, 'tbl_stream_dates',array("streamId_FK" => $streamInfoArr[0]['streamId_PK']));
+                if($dataArr['eventStDateTime'] != '' && $dataArr['eventEndDateTime'] != ''){
+                	
+                	$tbl_sstream_dates = array("streamId_FK" => $streamInfoArr[0]['streamId_PK'], "eventStDateTime" => $dataArr['eventStDateTime'], "eventEndDateTime" => $dataArr['eventEndDateTime'], "timezoneOffset" => $dataArr['timezoneOffset'], "active_status" => "A");
+
+                    $objDBQuery->addRecord(0, $tbl_sstream_dates, 'tbl_stream_dates');
+                }
+                foreach($MultiEventdata as $evt){
+                	if($evt['eventStDateTime'] != '' && $evt['eventEndDateTime'] != ''){
+
+                		$tbl_stream_dates = array("streamId_FK" => $streamInfoArr[0]['streamId_PK'], "eventStDateTime" => $evt['eventStDateTime'], "eventEndDateTime" => $evt['eventEndDateTime'], "timezoneOffset" => $evt['timezoneOffset'], "active_status" => "A");
+
+                        $objDBQuery->addRecord(0, $tbl_stream_dates, 'tbl_stream_dates');
+                	}
+                	
+                }
+                
+                $dataArr['eventStDateTime'] = NULL;
+                $dataArr['eventEndDateTime'] = NULL;
+			}
 			if ($objDBQuery->updateRecord(0, $dataArr, $tblName, array($enckeyDBFldName => $enkey)))
 			{	
 					

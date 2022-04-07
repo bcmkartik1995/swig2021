@@ -7,7 +7,7 @@
 	checkPageAccessPermission($menuCode);
 
 	$enkey = getValPostORGet('enkey', 'B');
-	$arrDBFld = array('streamCode', 'menuCode_FK', 'appCode_FK', 'streamTitle', 'streamUrl', 'streamImg', 'streamThumbnail', 'streamdescription', 'staring', 'streamTrailerUrl', 'streamDuration', 'directedBy', 'writtenBy', 'producedBy', 'genre', 'language', 'awards', 'rating', 'review', 'isPremium', 'amount', 'subscriptionExpiredFaq', 'subscriptionExpired', 'streamFeedUrl', 
+	$arrDBFld = array('streamId_PK','streamCode', 'menuCode_FK', 'appCode_FK', 'streamTitle', 'streamUrl', 'streamImg', 'streamThumbnail', 'streamdescription', 'staring', 'streamTrailerUrl', 'streamDuration', 'directedBy', 'writtenBy', 'producedBy', 'genre', 'language', 'awards', 'rating', 'review', 'isPremium', 'amount', 'subscriptionExpiredFaq', 'subscriptionExpired', 'streamFeedUrl', 'stream_type',
 	'streamEntryBy', 'status', 'isStreamFeatured', 'subCatCode_FK', 'dontePerViewSelected', 'isDontePerView', 'timezoneOffset', 'eventEndDateTime', 'eventStDateTime', 'linearStreamPlayingMethod', 'linearStreamDaiKey', 'isShowOnlyUpcomingSection');	
 	if ($enkey)
 	{
@@ -16,10 +16,21 @@
 		$awsomeIcon = "fa fa-plus";
 		$pageTitleTxt = "Edit Stream Detail";
 
-		$infoArr = $objDBQuery->getRecord(0, $arrDBFld, 'tbl_streams', array('streamCode' => $enkey));	 
+		$infoArr = $objDBQuery->getRecord(0, $arrDBFld, 'tbl_streams', array('streamCode' => $enkey));	
+
+		//echo "<pre>";print_r($infoArr);die; 
+		$stream_id = $infoArr[0]['streamId_PK'];
+		$stream_type = $infoArr[0]['stream_type'];
 		$streamImg = $infoArr[0]['streamImg'];
 		$streamThumbnail = $infoArr[0]['streamThumbnail'];
 		$backBtnURL = "view-all-streams.php?".$_SESSION['SESSION_QRY_STRING_FOR_STREAM'];
+
+		if($stream_type != '' && $stream_type == 'M'){
+			$multiEnvtDBFld = array('stream_date_PK', 'streamId_FK', 'eventStDateTime', 'eventEndDateTime', 'timezoneOffset');
+			$MultiEvtinfoArr = $objDBQuery->getRecord(0, $multiEnvtDBFld, 'tbl_stream_dates', array('streamId_FK' => $stream_id));
+
+			//echo "<pre>";print_r($MultiEvtinfoArr);die;
+		}
 	}
 	else
 	{
@@ -356,44 +367,122 @@ $_SESSION['formValidation'] = $valParamArray;
 ?>
 						</div>
 					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Stream Type</label>
+						<div class="col-sm-3 col-md-2">
+<?php			
+							makeDropDown('stream_type', array_keys($ARR_STREAM_TYPE), array_values($ARR_STREAM_TYPE), $infoArr[0]['stream_type'], "class='selectpicker' onChange='manageStreamType()' data-size='4'", '', '', 'Y');
+?>	
+						</div>
+						<?php if($infoArr[0]['stream_type'] != '' && $infoArr[0]['stream_type'] == 'M'){ ?>
+							<div class="col-sm-3 col-md-2" id="addLiveEvent" style="display: block;">
+	                            <button type="button" class="btn btn-sm btn-primary" onclick="AddMoreEventSec()">Add</button>
+							</div>
+						<?php } else { ?>
+							<div class="col-sm-3 col-md-2" id="addLiveEvent" style="display: none;">
+	                            <button type="button" class="btn btn-sm btn-primary" onclick="AddMoreEventSec()">Add</button>
+							</div>
+						<?php } ?>
+					</div>
+
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 form-control-label">Live Event Timing:</label>
-						<div class="col-sm-12 col-md-10">
-						<div>
-						
-							<div class="time_box">
-							  	<div class="time_text">Start Time:</div>
-							  	<div class="col_date">								 
-								<div class='input-group date' id='datetimepicker'>
-									<input type='text' class="form-control" value="<?=$infoArr[0]['eventStDateTime']?>" name="eventStDateTime"/>
-									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar">
-									</span>
-									</span>
+                        
+
+                        <?php $eventcount = 0;?>
+
+						<?php if($stream_type != '' && $stream_type == 'M') { ?>
+							<div id="moreEventSelection">
+							<?php foreach ($MultiEvtinfoArr as $eventinfo) { ?>
+								<div class="col-sm-12 col-md-10" id="EventSecc<?php echo $eventcount; ?>" style="float: right;margin-top: 10px;">
+									<div>
+										<div class="time_box">
+										  	<div class="time_text">Start Time:</div>
+										  	<div class="col_date">								 
+											<div class='input-group date' id='datetimepicker'>
+												<input type='text' class="form-control" value="<?=$eventinfo['eventStDateTime']?>" name="MultiEvent[<?php echo $eventcount; ?>][eventStDateTime]"/>
+												<span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar">
+												</span>
+												</span>
+											</div>
+											</div>
+										</div>
+										<div class="time_box">
+											<div class="time_text">End Time:</div>
+											<div class="col_date">				
+												<div class='input-group date' id='datetimepicker1'>
+													<input type='text' class="form-control" value="<?=$eventinfo['eventEndDateTime']?>" name="MultiEvent[<?php echo $eventcount; ?>][eventEndDateTime]"/>
+													<span class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar">
+													</span>
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class='time_box'>
+											<div class="time_text time_region">Region:</div>
+											
+				                               <?php			
+				                               if($eventcount == 0){
+				                               	   $dropdownID = 'MEtimezoneOffset';
+				                               } else {
+				                                   $dropdownID = 'MEtimezoneOffset'.$eventcount;	
+				                               }
+											   makeDropDownCustom($dropdownID, 'MultiEvent['.$eventcount.'][timezoneOffset]', array_values(timezone_identifiers_list()), array_values(timezone_identifiers_list()), $eventinfo['timezoneOffset'], "class='selectpicker' data-size='8' data-live-search='true'", '', '', 'Y');
+				                                ?>		
+										</div>
+								    </div>
 								</div>
-								</div>
+							<?php $eventcount = $eventcount+1;?>
+							<?php } ?>
 							</div>
-							<div class="time_box">
-								<div class="time_text">End Time:</div>
-								<div class="col_date">				
-									<div class='input-group date' id='datetimepicker1'>
-										<input type='text' class="form-control" value="<?=$infoArr[0]['eventEndDateTime']?>" name="eventEndDateTime"/>
+							<?php $divstyle = 'style="display:none"'; ?>
+						<?php } else { ?>
+							<?php $divstyle = 'style="display:block"'; ?>
+						<?php } ?>
+
+						<div class="col-sm-12 col-md-10" id="EventSecc" <?php echo $divstyle;?>>
+							<div>
+								<div class="time_box">
+								  	<div class="time_text">Start Time:</div>
+								  	<div class="col_date">								 
+									<div class='input-group date' id='datetimepicker'>
+										<input type='text' class="form-control" value="<?=$infoArr[0]['eventStDateTime']?>" name="eventStDateTime"/>
 										<span class="input-group-addon">
 											<span class="glyphicon glyphicon-calendar">
 										</span>
 										</span>
 									</div>
+									</div>
 								</div>
-							</div>
-							<div class='time_box'>
-							<div class="time_text time_region">Region:</div>
+								<div class="time_box">
+									<div class="time_text">End Time:</div>
+									<div class="col_date">				
+										<div class='input-group date' id='datetimepicker1'>
+											<input type='text' class="form-control" value="<?=$infoArr[0]['eventEndDateTime']?>" name="eventEndDateTime"/>
+											<span class="input-group-addon">
+												<span class="glyphicon glyphicon-calendar">
+											</span>
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class='time_box'>
+									<div class="time_text time_region">Region:</div>
+									
+		                               <?php			
+									   makeDropDown('timezoneOffset', array_values(timezone_identifiers_list()), array_values(timezone_identifiers_list()), $infoArr[0]['timezoneOffset'], "class='selectpicker' data-size='8' data-live-search='true'", '', '', 'Y');
+		                                ?>		
+								</div>
+						    </div>
+						</div>
+
+						<div class="col-sm-12 col-md-12" id="MoreEvent">
 							
-<?php			
-							makeDropDown('timezoneOffset', array_values(timezone_identifiers_list()), array_values(timezone_identifiers_list()), $infoArr[0]['timezoneOffset'], "class='selectpicker' data-size='8' data-live-search='true'", '', '', 'Y');
-?>		
-							</div>
 						</div>
-						</div>
+						<input type="hidden" value="<?php echo $eventcount;?>" id="total_chq" name="total_chq">
 					</div>
 					<div class="form-group row" style='display:none;'>
 						<label class="col-sm-12 col-md-2 form-control-label" >Is Premium?:</label>
@@ -470,8 +559,9 @@ include_once('video-player.php');
 ?>
 <!-- End of footer-->
 </div>
-
-<script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>	
+	<?php $a=0;?>
 manageStreamEntry('<?=$streamEntryBy?>');
 function manageStreamEntry(curVal)
 {
@@ -486,4 +576,50 @@ function manageStreamEntry(curVal)
 		$('#byFeedUrlEntry').hide();
 	}
 }
+
+function manageStreamType()
+{
+	var stream_type = document.getElementById('stream_type');
+	var add_button = document.getElementById('addLiveEvent');
+	var more_evt_sec = document.getElementById('moreEventSelection');
+	var single_evt_sec = document.getElementById('EventSecc');
+	var add_more = document.getElementById('MoreEvent');
+	if(stream_type.value == 'M'){
+        add_button.style.display = 'block'; 
+        if(add_more.style.display === 'none'){
+			add_more.style.display = 'block';
+		} 
+	} else {
+		if(add_button.style.display !== 'none'){
+			add_button.style.display = 'none';
+		}
+		if (more_evt_sec != null) {
+		    more_evt_sec.style.display = 'none';
+		}
+		if (add_more.style.display != null) {
+		    add_more.style.display = 'none';
+		}
+		single_evt_sec.style.display = 'block';
+	}
+}
+
+function AddMoreEventSec(){
+  var new_chq_no = parseInt($('#total_chq').val());
+  var new_end_no = new_chq_no + 1;
+
+  var new_input = '<div class="col-sm-12 col-md-10" style="margin-top: 10px;padding-left: 3px; float:right;"><div class="time_box"> <div class="time_text">Start Time:</div> <div class="col_date"> <div class="input-group date" id="datetimepicker'+ new_chq_no +'"><input type="text" class="form-control" value="" name="MultiEvent['+new_chq_no+'][eventStDateTime]"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>  </div> </div></div> <div class="time_box"><div class="time_text">End Time:</div><div class="col_date"><div class="input-group date" id="datetimepicker'+ new_end_no +'"><input type="text" class="form-control" value="" name="MultiEvent['+new_chq_no+'][eventEndDateTime]"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div></div><div class="time_box" style="display:flex;"><div class="time_text time_region">Region:</div><div id="AMEtimeoffsetsec'+ new_chq_no +'"></div></div></div>';
+
+  //$('#timezoneOffset').find('option').clone().appendTo('#timezoneOffset'+new_chq_no);
+
+  $('#MoreEvent').append(new_input);
+  $('select#timezoneOffset').clone().attr({ id: '#timezoneOffset'+new_chq_no, name: 'MultiEvent['+new_chq_no+'][timezoneOffset]'}).appendTo('#AMEtimeoffsetsec'+ new_chq_no);
+
+  //$('#timezoneOffset'+new_chq_no).attr('name', 'MultiEvent['+new_chq_no+'][timezoneOffset]');
+  
+
+  new_chq_no = new_chq_no+1;
+  new_end_no = new_end_no+1
+  $('#total_chq').val(new_chq_no);
+}
 </script>
+

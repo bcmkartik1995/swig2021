@@ -96,7 +96,7 @@ class DBQuery extends DatabaseAccess
 		}
 
 		$query = "INSERT INTO $tblName SET $setStr";
-
+//echo $query;die;
 		if ($trace) {
 			echo "<br>" . $query . "<br>";
 			exit;
@@ -138,7 +138,7 @@ class DBQuery extends DatabaseAccess
 		$query = "UPDATE $tblName SET $setClause";
 
 		if ($whereStr) $query .= " WHERE $whereStr";
- 
+
 		if ($trace) {
 			echo "<br>" . $query . "<br>";
 			exit;
