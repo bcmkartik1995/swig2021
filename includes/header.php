@@ -29,7 +29,7 @@ if (isset( $_SESSION['userDetails']))
 
 
 // HERE ADMIN ACCESSES SCRIPT NAME
-$adminUserAccessArr = array('view-all-apps.php', 'add-edit-app.php', 'view-all-menus.php', 'profile.php', 'change-password.php', 'add-edit-menu.php', 'view-all-streams.php', 'add-edit-stream.php', 'view-all-registered-users.php', 'generate-ticket-codes.php', 'view-all-ticket-codes.php', 'view-all-sub-categories.php', 'add-edit-sub-category.php', 'view-all-master-codes.php', 'generate-master-code.php');
+$adminUserAccessArr = array('view-all-apps.php', 'add-edit-app.php', 'view-all-menus.php', 'profile.php', 'change-password.php', 'add-edit-menu.php', 'view-all-streams.php', 'add-edit-stream.php', 'view-all-registered-users.php', 'generate-ticket-codes.php', 'view-all-ticket-codes.php', 'view-all-sub-categories.php', 'add-edit-sub-category.php', 'view-all-master-codes.php', 'generate-master-code.php', 'users.php','add-edit-users.php');
 
 if (isset($_SESSION['userDetails']['accountType']) && $_SESSION['userDetails']['accountType'] == 'A') {
 	if (!in_array(basename($_SERVER['SCRIPT_NAME']), $adminUserAccessArr)) headerRedirect('view-all-apps.php');

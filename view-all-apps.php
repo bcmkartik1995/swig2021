@@ -12,8 +12,20 @@
 	
 	if ($keyword) $whereCls .= " AND (appName  LIKE '%$keyword%')";
 	if ($status) $whereCls .= " AND status = '$status'";
+
+	$per_page_record = 10;  // Number of entries to show in a page.   
+        // Look for a GET variable page if not found default is 1.        
+    if (isset($_GET["page"])) {    
+        $page  = $_GET["page"];    
+    }    
+    else {    
+      $page=1;    
+    }    
+
+    $start_from = ($page-1) * $per_page_record;     
+
 	
-	$appsInfoArr = $objDBQuery->getRecord(0, array('*'), 'tbl_apps', $whereCls, '', '', 'appName', 'ASC');	 
+	$appsInfoArr = $objDBQuery->getRecord(0, array('*'), 'tbl_apps', $whereCls, $start_from, $per_page_record, 'appName', 'ASC');	 
 	$_SESSION['SESSION_QRY_STRING'] = "keyword=$keyword&status=$status";
 ?>
 <!-- Start of content -->
@@ -73,6 +85,7 @@
 					{
 						$numOfRows = count($appsInfoArr);
 						//danger
+						$srno = $start_from;
 						for ($i = 0; $i < $numOfRows; $i++)
 						{
 							$status = $appsInfoArr[$i]['status'];
@@ -91,7 +104,7 @@
 							$frmId4ActionStatus = "statusFrmId_".$i;
 ?>
 							 <tr>
-								<td><?=$i+1?>.</td>
+								<td><?=$srno+1?>.</td>
 								<td><?php echo $appsInfoArr[$i]['appName']?></td>
 								<td class="width350"><a href="feed/v1/<?php echo $appsInfoArr[$i]['appCode']?>" class="view_all_contend" target='_blank' title='View Feed'><?php echo $appsInfoArr[$i]['appCode']?></a></td>
 								<td class="text-center">
@@ -118,6 +131,7 @@
 								</td>
 							 </tr>
 <?php
+                        $srno = $srno+1;
 						}
 				}
 				else
@@ -132,6 +146,41 @@
                 </table>
 			</div>
             <!-- End of table responsive --> 
+
+            <div class="padding" style="padding-top: 0px;">
+	
+				<div class="pagination">    
+				      <?php  
+				        $UsersCount = $objDBQuery->getRecordCount(0, 'tbl_apps', $whereCls, '');     
+				        $total_records = $UsersCount;     
+				            
+				        // Number of pages required.   
+				        $total_pages = ceil($total_records / $per_page_record);     
+				        $pagLink = "";       
+				      
+				        if($page>=2){   
+				            echo "<a href='view-all-apps.php?page=".($page-1)."'>  Prev </a>";   
+				        }       
+				                   
+				        for($i = max(1, $page - 5); $i <= min($page + 5, $total_pages); $i++){   
+				          if ($i == $page) {   
+				              $pagLink .= "<a class = 'active' href='view-all-apps.php?page="  
+				                                                .$i."'>".$i." </a>";   
+				          }               
+				          else  {   
+				              $pagLink .= "<a href='view-all-apps.php?page=".$i."'>   
+				                                                ".$i." </a>";     
+				          }   
+				        };     
+				        echo $pagLink;   
+				  
+				        if($page<$total_pages){   
+				            echo "<a href='view-all-apps.php?page=".($page+1)."'>  Next </a>";   
+				        }   
+				  
+				      ?>    
+				</div> 
+			</div>
 		</div>
 	</div>
 </div>

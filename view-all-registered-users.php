@@ -11,7 +11,18 @@
 	if ($keyword) $whereCls .= " AND (name LIKE '%$keyword%' OR username LIKE '%$keyword%' OR email LIKE '%$keyword%' OR instagram LIKE '%$keyword%')";
 	if ($appCode) $whereCls .= " AND (appCode = '$appCode')";
 	
-	$registeredInfoArr = $objDBQuery->getRecord(0, "*, ru.createdOn AS createdOnUser ", 'tbl_registered_users ru, tbl_apps', $whereCls .' GROUP BY ru.userCode', '', '', 'username ASC, ru.createdOn', 'DESC');	
+	$per_page_record = 10;  // Number of entries to show in a page.   
+    // Look for a GET variable page if not found default is 1.        
+    if (isset($_GET["page"])) {    
+        $page  = $_GET["page"];    
+    }    
+    else {    
+      $page=1;    
+    }    
+
+    $start_from = ($page-1) * $per_page_record;     
+
+	$registeredInfoArr = $objDBQuery->getRecord(0, "*, ru.createdOn AS createdOnUser ", 'tbl_registered_users ru, tbl_apps', $whereCls .' GROUP BY ru.userCode', $start_from, $per_page_record, 'username ASC, ru.createdOn', 'DESC');	
 	$_SESSION['SESSION_QRY_STRING'] = "keyword=$keyword&appCode=$appCode";
 ?>
 <!-- Start of content -->
@@ -82,6 +93,7 @@
 					if (is_array($registeredInfoArr) && !empty($registeredInfoArr))
 					{
 						$numOfRows = count($registeredInfoArr);
+						$srno = $start_from;
 						for ($i = 0; $i < $numOfRows; $i++)
 						{
 							$status = $registeredInfoArr[$i]['accountStatus'];
@@ -103,7 +115,7 @@
 							if ($instagram == '') $instagram = 'NA';
 ?>
 							 <tr>
-								<td><?=$i+1?>.</td>
+								<td><?=$srno+1?>.</td>
 <?php
 								if ($accountType == 'S')
 								{
@@ -139,6 +151,7 @@
 								</td>
 							 </tr>
 <?php
+                        $srno = $srno+1;
 						}
 				}
 				else
@@ -153,6 +166,41 @@
                 </table>
 			</div>
             <!-- End of table responsive --> 
+
+            <div class="padding" style="padding-top: 0px;">
+	
+				<div class="pagination">    
+				      <?php  
+				        $TicketCount = $objDBQuery->getRecordCount(0, 'tbl_registered_users ru, tbl_apps', $whereCls, '');     
+				        $total_records = $TicketCount;     
+				            
+				        // Number of pages required.   
+				        $total_pages = ceil($total_records / $per_page_record);     
+				        $pagLink = "";       
+				      
+				        if($page>=2){   
+				            echo "<a href='view-all-registered-users.php?page=".($page-1)."'>  Prev </a>";   
+				        }       
+				        for($i = max(1, $page - 5); $i <= min($page + 5, $total_pages); $i++){           
+				        //for ($i=1; $i<=$total_pages; $i++) {   
+				          if ($i == $page) {   
+				              $pagLink .= "<a class = 'active' href='view-all-registered-users.php?page="  
+				                                                .$i."'>".$i." </a>";   
+				          }               
+				          else  {   
+				              $pagLink .= "<a href='view-all-registered-users.php?page=".$i."'>   
+				                                                ".$i." </a>";     
+				          }   
+				        };     
+				        echo $pagLink;   
+				  
+				        if($page<$total_pages){   
+				            echo "<a href='view-all-registered-users.php?page=".($page+1)."'>  Next </a>";   
+				        }   
+				  
+				      ?>    
+				</div> 
+			</div>
 		</div>
 	</div>
 </div>
