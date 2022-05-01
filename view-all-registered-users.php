@@ -148,6 +148,11 @@
 										<input type="hidden" name="postAction" value="deleteRecordAction">
 										<input type="hidden" name="formToken" value="<?php echo $_SESSION['prepareToken']; ?>">
 									</form>	
+
+									<form action="view-registered-user.php" method="post" class="form-inline">
+										<button type="submit" class="btn blue_btn" style="line-height: 1;"><small>view</small></button>
+										<input type="hidden" name="userCode" value="<?php echo $registeredInfoArr[$i]['userCode']?>">
+									</form>	
 								</td>
 							 </tr>
 <?php

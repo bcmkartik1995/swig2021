@@ -243,4 +243,13 @@ class DBQuery extends DatabaseAccess
 		$emailFormatInfoArr = $this->getRecord($trace, '*', 'tbl_email_format', $whereCls);
 		return $emailFormatInfoArr;
 	}
+
+
+	public function customsqlquery($query)
+	{
+        $objDbAccess = new DatabaseAccess();
+		$resultArray = $objDbAccess->selectRecord($query);
+		unset($objDbAccess);
+		return $resultArray;
+	}
 }

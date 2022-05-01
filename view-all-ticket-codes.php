@@ -41,8 +41,9 @@
 
     $start_from = ($page-1) * $per_page_record;     
 
-	
+	//$whereCls .= " AND (appCode = '$appCode')";
 	$ticketCodeInfoArr = $objDBQuery->getRecord(0, array('*'), 'tbl_ticket_codes', $whereCls, $start_from, $per_page_record, 'createdOn', 'ASC');
+
 	$_SESSION['SESSION_QRY_STRING_FOR_SUB_CATE'] = "keyword=$keyword&status=$status&appCode=$appCode";
 ?>
 <!-- Start of content -->
@@ -94,8 +95,12 @@
 					<tr>
 						<th class="width80">Sr. No.</th>
 						<th>Ticket Code</th>
+						<th>Email</th>
 						<th class="text-center width202">Ticket Sell Status</th>
 						<th class="text-center width202">Ticket Used</th>						
+						<th class="text-center width202">Access Code Sent</th>						
+						<th class="text-center width202">24 hrs reminders sent</th>						
+						<th class="text-center width202">15 hrs reminders sent</th>						
 					</tr>
 					</thead>
 					<tbody>
@@ -109,16 +114,34 @@
 						{
 							$status = $ticketCodeInfoArr[$i]['status'];
 							$isUsed = $ticketCodeInfoArr[$i]['isUsed'];
+							$isAccessCodeSent = $ticketCodeInfoArr[$i]['isAccessCodeSent'];
+							$is24hourReminderSent = $ticketCodeInfoArr[$i]['is24hourReminderSent'];
+							$is15hourReminderSent = $ticketCodeInfoArr[$i]['is15hourReminderSent'];
 							$isMasterCode = $ticketCodeInfoArr[$i]['isMasterCode'];
 							$statusTxt = $ARR_TCKT_STATUS[$status]; 
 							$isUsed = $ARR_IS_PREMIUM[$isUsed]; 
+							$isAccessCodeSent = $ARR_IS_PREMIUM[$isAccessCodeSent]; 
+							$is15hourReminderSent = $ARR_IS_PREMIUM[$is15hourReminderSent]; 
+							$is24hourReminderSent = $ARR_IS_PREMIUM[$is24hourReminderSent]; 
+
+							$query2 = "SELECT email FROM tbl_registered_users where userCode = '".$ticketCodeInfoArr[$i]['buyerUserCode_FK']."'";
+                            $UserArray = $objDBQuery->customsqlquery($query2);
 							if ($isMasterCode == 'Y') $statusTxt = $ARR_TCKT_STATUS['M'];
 ?>
 							 <tr>
 								<td><?=$srno+1?>.</td>
 								<td><?php echo $ticketCodeInfoArr[$i]['ticketCode']?></td>
+								<?php if(isset($UserArray[0]['email'])){?>
+								<td><?php echo $UserArray[0]['email']?></td>
+								<?php } else {?>
+								<td></td>
+								<?php } ?>
+
 								<td class="text-center"><?php echo $statusTxt?></td>
 								<td class="text-center"><?php echo $isUsed?></td>
+								<td class="text-center"><?php echo $isAccessCodeSent?></td>
+								<td class="text-center"><?php echo $is24hourReminderSent?></td>
+								<td class="text-center"><?php echo $is15hourReminderSent?></td>
 							 </tr>
 <?php
                         $srno = $srno+1; 
