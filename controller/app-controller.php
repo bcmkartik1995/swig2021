@@ -14,6 +14,7 @@ if (!empty($_POST['formToken']) && $_POST['formToken'] != $_SESSION['prepareToke
 $tblName = 'tbl_apps';
 $enckeyDBFldName = 'appCode';
 $msgTxt = 'app';
+$assetDirName = 'app_images';
 
 switch ($accessCase) 
 {
@@ -67,7 +68,8 @@ switch ($accessCase)
 		$_SESSION['messageSession'] = $msg;
 		break;
 	
-	case 'addAction':		
+	case 'addAction':	
+
 		$_POST = trimFormValue(0, $_POST);
 		
 		$headerRedirectUrl = '../add-edit-app.php';
@@ -78,9 +80,16 @@ switch ($accessCase)
 			viewState($dataArr, 1);
 			$_SESSION['messageSession'] = 'Sorry, App Name already exists. Please try another.';	
 		}
+		else if (allowedFIleExten('app_logo'))
+		{
+			$_SESSION['messageSession'] = "Please upload app logo format png, jpg or gif";	
+			viewState($dataArr, 1);			
+		}
 		else if (!validateForm($_SESSION['formValidation']))
 		{
 			$msg = '';	
+			$fileName =  fileUpload(0, 'app_logo', $assetDirName);
+			if ($fileName) $dataArr['app_logo'] = $fileName;
 			$dataArr['updatedOn'] = date(LONG_MYSQL_DATE_FORMAT);			
 			$dataArr[$enckeyDBFldName] = randomMD5();
 			if ($objDBQuery->addRecord(0, $dataArr, $tblName))
@@ -110,9 +119,22 @@ switch ($accessCase)
 			
 			$_SESSION['messageSession'] = 'Sorry, App Name already exists. Please try another.';	
 		}
+		else if (allowedFIleExten('app_logo'))
+		{
+			$_SESSION['messageSession'] = "Please upload app logo format png, jpg or gif";	
+			viewState($dataArr, 1);			
+		}
 		else if (!validateForm($_SESSION['formValidation']))
 		{
-			$msg = '';						
+			$msg = '';	
+            $infoArr = $objDBQuery->getRecord(0, array('app_logo'), $tblName, "$enckeyDBFldName != '$enkey' AND appName = '".strtolower($appName)."'");
+			$fileName =  fileUpload(0, 'streamImg', $assetDirName);
+			if ($fileName) 
+			{
+				$dataArr['streamImg'] = $fileName;				
+				unlinkFile(0, $infoArr[0]['streamImg'], $assetDirName);
+			}
+
 			$frmKeyExcludeArr = array('submitBtn', 'formToken', 'postAction', 'enkey', 'photo_delete');
 			$dataArr = prepareKeyValue4Msql(0, $_POST, $frmKeyExcludeArr);
 			$dataArr['updatedOn'] = date(LONG_MYSQL_DATE_FORMAT);

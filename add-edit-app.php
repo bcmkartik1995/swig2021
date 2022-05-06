@@ -5,15 +5,20 @@
 	$enkey = getValPostORGet('enkey', 'B');
 	if ($_SESSION['userDetails']['accountType'] != 'S' && $enkey == '') checkPageAccessPermission('');
 
-	$arrDBFld = array('appId_PK', 'appCode', 'appName', 'feedback_email', 'feedback_label', 'status', 'isLiveTVSubCatLblShow', 'isOnDemandSubCatLblShow', 'isDonatePerViewSubCatLblShow', 'isDonatePerViewLiveEventSubCatLblShow');	
+	$arrDBFld = array('appId_PK', 'appCode', 'appName', 'feedback_email', 'feedback_label', 'status', 'isLiveTVSubCatLblShow', 'isOnDemandSubCatLblShow', 'isDonatePerViewSubCatLblShow', 'isDonatePerViewLiveEventSubCatLblShow','app_logo');	
 	if ($enkey)
 	{
 		$btnTxt = 'Submit';
 		$postAction = 'updateAction';
 		$awsomeIcon = "fa fa-plus";
 		$pageTitleTxt = "Edit App Detail";
-
-		$infoArr = $objDBQuery->getRecord(0, $arrDBFld, 'tbl_apps', array('appCode' => $enkey));	 
+         
+		$infoArr = $objDBQuery->getRecord(0, $arrDBFld, 'tbl_apps', array('appCode' => $enkey));	
+		if(isset($infoArr[0]['app_logo'])){
+			$AppImg = $infoArr[0]['app_logo'];
+		}else{
+			$AppImg = '';
+		} 
 		$clientImg = $infoArr[0]['clientImg'];
 		$backBtnURL = "view-all-apps.php?".$_SESSION['SESSION_QRY_STRING'];
 		$idDisabled = 'readonly';
@@ -25,7 +30,8 @@
 		$postAction = 'addAction';
 		$awsomeIcon = "fa fa-plus";
 		$pageTitleTxt = "Add New App";
-	
+	    $idDisabled = '';
+	    $AppImg = ''; 
 		foreach ($arrDBFld AS $dbFldName)
 		{
 			$infoArr[0][$dbFldName] = @$_SESSION['session_'.$dbFldName];
@@ -122,6 +128,42 @@
 ?>	
 						</div>
 					</div>
+
+
+					<!-- Start of banner -->
+					<div class="form-group row">
+						<label for="photo_file" class="col-sm-12 col-md-2 form-control-label">App Logo:</label>
+						<div class="col-sm-12 col-md-10">
+							<!-- Start of photo box -->
+<?php
+							if ($AppImg != '')
+							{
+?>
+								<div class="photo_box">
+									<div class="banner_img_box">
+										<img src="<?=HTTP_PATH.'/uploads/app_images/'.$AppImg?>" class="img-responsive" onerror="this.onerror=null;this.src='<?php echo HTTP_PATH?>/images/logo.jpg';">
+									</div>
+								</div>
+<?php
+							}
+?>
+							<!-- End of photo box -->
+							<div id="undo" class="col-sm-4 p-a-xs" style="display:none"><a> Undo Delete</a></div>
+							<!-- Start of upload file -->
+							<input id="photo_delete" name="photo_delete" type="hidden" value="0" class="has-value">
+							<input id="uploadFile" placeholder="Choose File" class="form-control" type="text" id="photo_filess">
+							<div class="fileUpload btn btn-sm btn-success">
+								<span><i class="fa fa-upload"></i> Upload</span>
+								<input id="uploadBtn" type="file" name="app_logo" class="upload form-control">
+							</div>
+							<!-- End of upload file -->
+							<small class="text-muted text-image"><i class="fa fa-question-circle-o"></i>&nbsp;Extensions: png, jpg, jpeg, gif</small>
+						 </div>
+					</div>
+					<!-- End of banner -->
+
+
+
 					<!-- Start of button -->
 					<div class="form-groups row">
 						<div class="col-sm-12 col-md-offset-2 col-md-10 btn_space_gap">

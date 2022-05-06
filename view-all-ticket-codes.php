@@ -50,7 +50,7 @@
 <div class="app-body">
 	<div class="padding">
 		<?php include_once('includes/flash-msg.php'); ?>
-
+        <div id="flash_message_custom" class="alert alert_padding"></div>
         <div class="box">
 			<!-- Start of header area-->
 			
@@ -86,13 +86,19 @@
 					</span>
 				</form>
 			</div>
+
+			<div class="search-panel displayNone" id="send-main-btn">
+				<button type="submit" class="btn btn-sm blue_btn" id="send-mail-btn">Send Email</button>
+			</div>
 			
 			<!-- End of search panel -->
 			<!-- Start of table responsive -->
             <div class="table-responsive">
-				<table class="table table-striped testimonial_table">
+            	
+				<table class="table table-striped testimonial_table" id="table-code-table">
 					<thead>
 					<tr>
+						<th class="width80" style="padding-left: 1px;"><input style="-webkit-appearance: auto;" type="checkbox" id="select-all"></th>
 						<th class="width80">Sr. No.</th>
 						<th>Ticket Code</th>
 						<th>Email</th>
@@ -128,7 +134,15 @@
                             $UserArray = $objDBQuery->customsqlquery($query2);
 							if ($isMasterCode == 'Y') $statusTxt = $ARR_TCKT_STATUS['M'];
 ?>
-							 <tr>
+							 <tr id="table-code-tbody">
+
+								<td class="text-center" style="padding-left: 0px;">
+                                    <?php if(isset($UserArray[0]['email'])){?>
+									<input class="tc-check-class" style="-webkit-appearance: auto;" type="checkbox" name="check[]" value="<?php echo $UserArray[0]['email']; ?>">
+									<?php } else {?>
+									<input class="tc-check-class" style="-webkit-appearance: auto;" type="checkbox" name="check[]" value="">
+									<?php } ?>
+								</td>
 								<td><?=$srno+1?>.</td>
 								<td><?php echo $ticketCodeInfoArr[$i]['ticketCode']?></td>
 								<?php if(isset($UserArray[0]['email'])){?>
@@ -136,7 +150,6 @@
 								<?php } else {?>
 								<td></td>
 								<?php } ?>
-
 								<td class="text-center"><?php echo $statusTxt?></td>
 								<td class="text-center"><?php echo $isUsed?></td>
 								<td class="text-center"><?php echo $isAccessCodeSent?></td>
@@ -205,3 +218,114 @@
 <!-- End of footer-->
 </div>
 <!-- Start of main content -->
+
+<script src="js/jquery.min.js"></script>
+<script>
+	$(document).ready(function (){
+        $("#table-code-table #select-all").click(function (){
+            $("#send-main-btn").removeClass('displayNone');
+			$("#table-code-tbody input[type='checkbox']").prop('checked',this.checked);
+		});
+
+		$("#table-code-tbody input[type='checkbox']").click(function (){
+			var emails = [];
+        	var inputs = document.querySelectorAll(".tc-check-class");
+        	for(var i=0; i< inputs.length; i++){
+        		if(inputs[i].checked == true){
+        			if(inputs[i].value != ''){
+        				emails.push(inputs[i].value);
+        			}
+        		}
+        	}
+        	if(emails.length != 0){
+                $("#send-main-btn").removeClass('displayNone');
+        	}
+		});
+
+		$("#send-main-btn").click(function (){
+			var emails = [];
+        	var inputs = document.querySelectorAll(".tc-check-class");
+        	for(var i=0; i< inputs.length; i++){
+        		if(inputs[i].checked == true){
+        			if(inputs[i].value != ''){
+        				emails.push(inputs[i].value);
+        			}
+        		}
+        	}
+        	console.log(emails);
+        	if(emails.length === 0){
+                $("#flash_message_custom").html('');
+                $("#flash_message_custom").show();
+                $("#flash_message_custom").append("<p>Sorry, No email address found</p>");
+                $("#flash_message_custom").addClass('alert-danger');
+                setTimeout(function() {
+				    $('#flash_message_custom').fadeOut('fast');
+				}, 2000);
+        	} else {
+        		$("#send-mail-btn").attr('disabled','disabled');
+        		$("#table-code-tbody input[type='checkbox']").attr("disabled", true);
+        		$("#table-code-table #select-all").attr("disabled", true);
+        		$.ajax({
+	                url: "send-ticket-code-mail.php",
+	                dataType: 'json',
+	                type: "GET",
+	                data: {
+	                   emails: emails
+	                },
+	                success: function(data){
+	                	console.log(data);
+	                    if(data["status"] == true) {
+	                    	$("#send-mail-btn").removeAttr('disabled');
+	                    	$("#table-code-tbody input[type='checkbox']").removeAttr("disabled");
+	                    	$("#table-code-table #select-all").removeAttr("disabled");
+
+	                        $("#flash_message_custom").html('');
+	                        $("#flash_message_custom").show();
+			                $("#flash_message_custom").append("<p>Email Sent successfully.</p>");
+			                $("#flash_message_custom").addClass('alert-success');
+
+			                $("#send-main-btn").addClass('displayNone');
+                            $("#table-code-tbody input[type='checkbox']").removeAttr('checked');
+                            $("#table-code-table #select-all").removeAttr('checked');
+
+			                setTimeout(function() {
+							    $('#flash_message_custom').fadeOut('fast');
+							}, 4000);
+	                    } else {
+	                    	$("#send-mail-btn").removeAttr('disabled');
+	                    	$("#table-code-tbody input[type='checkbox']").removeAttr("disabled");
+	                    	$("#table-code-table #select-all").removeAttr("disabled");
+	                        $("#flash_message_custom").html('');
+	                        $("#flash_message_custom").show();
+			                $("#flash_message_custom").append("<p>Sorry, Something went wrong please try again.</p>");
+			                $("#flash_message_custom").addClass('alert-danger');
+
+			                setTimeout(function() {
+							    $('#flash_message_custom').fadeOut('fast');
+							}, 2000);
+	                    } 
+	                } ,
+	                error: function(data){
+	                	$("#send-mail-btn").removeAttr('disabled');
+                    	$("#table-code-tbody input[type='checkbox']").removeAttr("disabled");
+                    	$("#table-code-table #select-all").removeAttr("disabled");
+
+                        $("#flash_message_custom").html('');
+                        $("#flash_message_custom").show();
+		                $("#flash_message_custom").append("<p>Sorry, Something went wrong please try again.</p>");
+		                $("#flash_message_custom").addClass('alert-danger');
+
+		                $("#send-main-btn").addClass('displayNone');
+                        $("#table-code-tbody input[type='checkbox']").removeAttr('checked');
+                        $("#table-code-table #select-all").removeAttr('checked');
+
+		                setTimeout(function() {
+						    $('#flash_message_custom').fadeOut('fast');
+						}, 2000);
+	                }
+	            });
+        	}
+		});
+	});
+	
+</script>
