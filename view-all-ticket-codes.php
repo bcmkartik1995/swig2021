@@ -29,15 +29,28 @@
 		$appCodesStr = "(appCode_FK = '$appCodesStr')";
 		$whereCls .= " AND ($appCodesStr)";
 	}
-	
-	$ticketCodeInfoArr = $objDBQuery->getRecord(0, array('*'), 'tbl_ticket_codes', $whereCls, '', '', 'createdOn', 'ASC');
+
+	$per_page_record = 10;  // Number of entries to show in a page.   
+        // Look for a GET variable page if not found default is 1.        
+    if (isset($_GET["page"])) {    
+        $page  = $_GET["page"];    
+    }    
+    else {    
+      $page=1;    
+    }    
+
+    $start_from = ($page-1) * $per_page_record;     
+
+	//$whereCls .= " AND (appCode = '$appCode')";
+	$ticketCodeInfoArr = $objDBQuery->getRecord(0, array('*'), 'tbl_ticket_codes', $whereCls, $start_from, $per_page_record, 'createdOn', 'ASC');
+
 	$_SESSION['SESSION_QRY_STRING_FOR_SUB_CATE'] = "keyword=$keyword&status=$status&appCode=$appCode";
 ?>
 <!-- Start of content -->
 <div class="app-body">
 	<div class="padding">
 		<?php include_once('includes/flash-msg.php'); ?>
-
+        <div id="flash_message_custom" class="alert alert_padding"></div>
         <div class="box">
 			<!-- Start of header area-->
 			
@@ -73,17 +86,27 @@
 					</span>
 				</form>
 			</div>
+
+			<div class="search-panel displayNone" id="send-main-btn">
+				<button type="submit" class="btn btn-sm blue_btn" id="send-mail-btn">Send Email</button>
+			</div>
 			
 			<!-- End of search panel -->
 			<!-- Start of table responsive -->
             <div class="table-responsive">
-				<table class="table table-striped testimonial_table">
+            	
+				<table class="table table-striped testimonial_table" id="table-code-table">
 					<thead>
 					<tr>
+						<th class="width80" style="padding-left: 1px;"><input style="-webkit-appearance: auto;" type="checkbox" id="select-all"></th>
 						<th class="width80">Sr. No.</th>
 						<th>Ticket Code</th>
+						<th>Email</th>
 						<th class="text-center width202">Ticket Sell Status</th>
 						<th class="text-center width202">Ticket Used</th>						
+						<th class="text-center width202">Access Code Sent</th>						
+						<th class="text-center width202">24 hrs reminders sent</th>						
+						<th class="text-center width202">15 hrs reminders sent</th>						
 					</tr>
 					</thead>
 					<tbody>
@@ -92,22 +115,49 @@
 					{
 						$numOfRows = count($ticketCodeInfoArr);
 						//danger
+						$srno = $start_from;
 						for ($i = 0; $i < $numOfRows; $i++)
 						{
 							$status = $ticketCodeInfoArr[$i]['status'];
 							$isUsed = $ticketCodeInfoArr[$i]['isUsed'];
+							$isAccessCodeSent = $ticketCodeInfoArr[$i]['isAccessCodeSent'];
+							$is24hourReminderSent = $ticketCodeInfoArr[$i]['is24hourReminderSent'];
+							$is15hourReminderSent = $ticketCodeInfoArr[$i]['is15hourReminderSent'];
 							$isMasterCode = $ticketCodeInfoArr[$i]['isMasterCode'];
 							$statusTxt = $ARR_TCKT_STATUS[$status]; 
 							$isUsed = $ARR_IS_PREMIUM[$isUsed]; 
+							$isAccessCodeSent = $ARR_IS_PREMIUM[$isAccessCodeSent]; 
+							$is15hourReminderSent = $ARR_IS_PREMIUM[$is15hourReminderSent]; 
+							$is24hourReminderSent = $ARR_IS_PREMIUM[$is24hourReminderSent]; 
+
+							$query2 = "SELECT email FROM tbl_registered_users where userCode = '".$ticketCodeInfoArr[$i]['buyerUserCode_FK']."'";
+                            $UserArray = $objDBQuery->customsqlquery($query2);
 							if ($isMasterCode == 'Y') $statusTxt = $ARR_TCKT_STATUS['M'];
 ?>
-							 <tr>
-								<td><?=$i+1?>.</td>
+							 <tr id="table-code-tbody">
+
+								<td class="text-center" style="padding-left: 0px;">
+                                    <?php if(isset($UserArray[0]['email'])){?>
+									<input class="tc-check-class" style="-webkit-appearance: auto;" type="checkbox" name="check[]" value="<?php echo $UserArray[0]['email']; ?>">
+									<?php } else {?>
+									<input class="tc-check-class" style="-webkit-appearance: auto;" type="checkbox" name="check[]" value="">
+									<?php } ?>
+								</td>
+								<td><?=$srno+1?>.</td>
 								<td><?php echo $ticketCodeInfoArr[$i]['ticketCode']?></td>
+								<?php if(isset($UserArray[0]['email'])){?>
+								<td><?php echo $UserArray[0]['email']?></td>
+								<?php } else {?>
+								<td></td>
+								<?php } ?>
 								<td class="text-center"><?php echo $statusTxt?></td>
 								<td class="text-center"><?php echo $isUsed?></td>
+								<td class="text-center"><?php echo $isAccessCodeSent?></td>
+								<td class="text-center"><?php echo $is24hourReminderSent?></td>
+								<td class="text-center"><?php echo $is15hourReminderSent?></td>
 							 </tr>
 <?php
+                        $srno = $srno+1; 
 						}
 				}
 				else
@@ -122,15 +172,41 @@
                 </table>
 			</div>
             <!-- End of table responsive --> 
-			<div class="pagination_box" style='display:none;'>
-			<ul class="pagination">
-				<li><span class="glyphicon glyphicon-menu-left"></span></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><span class="glyphicon glyphicon-menu-right"></span></li>
-			</ul>
-			</div>
+			
+			<div class="padding" style="padding-top: 0px;">
+	
+				<div class="pagination">    
+				      <?php  
+				        $TicketCount = $objDBQuery->getRecordCount(0, 'tbl_ticket_codes', $whereCls, '');     
+				        $total_records = $TicketCount;     
+				            
+				        // Number of pages required.   
+				        $total_pages = ceil($total_records / $per_page_record);     
+				        $pagLink = "";       
+				      
+				        if($page>=2){   
+				            echo "<a href='view-all-ticket-codes.php?page=".($page-1)."'>  Prev </a>";   
+				        }       
+				        for($i = max(1, $page - 5); $i <= min($page + 5, $total_pages); $i++){           
+				        //for ($i=1; $i<=$total_pages; $i++) {   
+				          if ($i == $page) {   
+				              $pagLink .= "<a class = 'active' href='view-all-ticket-codes.php?page="  
+				                                                .$i."'>".$i." </a>";   
+				          }               
+				          else  {   
+				              $pagLink .= "<a href='view-all-ticket-codes.php?page=".$i."'>   
+				                                                ".$i." </a>";     
+				          }   
+				        };     
+				        echo $pagLink;   
+				  
+				        if($page<$total_pages){   
+				            echo "<a href='view-all-ticket-codes.php?page=".($page+1)."'>  Next </a>";   
+				        }   
+				  
+				      ?>    
+				</div> 
+			</div> 
 		</div>
 	</div>
 </div>
@@ -142,3 +218,114 @@
 <!-- End of footer-->
 </div>
 <!-- Start of main content -->
+
+<script src="js/jquery.min.js"></script>
+<script>
+	$(document).ready(function (){
+        $("#table-code-table #select-all").click(function (){
+            $("#send-main-btn").removeClass('displayNone');
+			$("#table-code-tbody input[type='checkbox']").prop('checked',this.checked);
+		});
+
+		$("#table-code-tbody input[type='checkbox']").click(function (){
+			var emails = [];
+        	var inputs = document.querySelectorAll(".tc-check-class");
+        	for(var i=0; i< inputs.length; i++){
+        		if(inputs[i].checked == true){
+        			if(inputs[i].value != ''){
+        				emails.push(inputs[i].value);
+        			}
+        		}
+        	}
+        	if(emails.length != 0){
+                $("#send-main-btn").removeClass('displayNone');
+        	}
+		});
+
+		$("#send-main-btn").click(function (){
+			var emails = [];
+        	var inputs = document.querySelectorAll(".tc-check-class");
+        	for(var i=0; i< inputs.length; i++){
+        		if(inputs[i].checked == true){
+        			if(inputs[i].value != ''){
+        				emails.push(inputs[i].value);
+        			}
+        		}
+        	}
+        	console.log(emails);
+        	if(emails.length === 0){
+                $("#flash_message_custom").html('');
+                $("#flash_message_custom").show();
+                $("#flash_message_custom").append("<p>Sorry, No email address found</p>");
+                $("#flash_message_custom").addClass('alert-danger');
+                setTimeout(function() {
+				    $('#flash_message_custom').fadeOut('fast');
+				}, 2000);
+        	} else {
+        		$("#send-mail-btn").attr('disabled','disabled');
+        		$("#table-code-tbody input[type='checkbox']").attr("disabled", true);
+        		$("#table-code-table #select-all").attr("disabled", true);
+        		$.ajax({
+	                url: "send-ticket-code-mail.php",
+	                dataType: 'json',
+	                type: "GET",
+	                data: {
+	                   emails: emails
+	                },
+	                success: function(data){
+	                	console.log(data);
+	                    if(data["status"] == true) {
+	                    	$("#send-mail-btn").removeAttr('disabled');
+	                    	$("#table-code-tbody input[type='checkbox']").removeAttr("disabled");
+	                    	$("#table-code-table #select-all").removeAttr("disabled");
+
+	                        $("#flash_message_custom").html('');
+	                        $("#flash_message_custom").show();
+			                $("#flash_message_custom").append("<p>Email Sent successfully.</p>");
+			                $("#flash_message_custom").addClass('alert-success');
+
+			                $("#send-main-btn").addClass('displayNone');
+                            $("#table-code-tbody input[type='checkbox']").removeAttr('checked');
+                            $("#table-code-table #select-all").removeAttr('checked');
+
+			                setTimeout(function() {
+							    $('#flash_message_custom').fadeOut('fast');
+							}, 4000);
+	                    } else {
+	                    	$("#send-mail-btn").removeAttr('disabled');
+	                    	$("#table-code-tbody input[type='checkbox']").removeAttr("disabled");
+	                    	$("#table-code-table #select-all").removeAttr("disabled");
+	                        $("#flash_message_custom").html('');
+	                        $("#flash_message_custom").show();
+			                $("#flash_message_custom").append("<p>Sorry, Something went wrong please try again.</p>");
+			                $("#flash_message_custom").addClass('alert-danger');
+
+			                setTimeout(function() {
+							    $('#flash_message_custom').fadeOut('fast');
+							}, 2000);
+	                    } 
+	                } ,
+	                error: function(data){
+	                	$("#send-mail-btn").removeAttr('disabled');
+                    	$("#table-code-tbody input[type='checkbox']").removeAttr("disabled");
+                    	$("#table-code-table #select-all").removeAttr("disabled");
+
+                        $("#flash_message_custom").html('');
+                        $("#flash_message_custom").show();
+		                $("#flash_message_custom").append("<p>Sorry, Something went wrong please try again.</p>");
+		                $("#flash_message_custom").addClass('alert-danger');
+
+		                $("#send-main-btn").addClass('displayNone');
+                        $("#table-code-tbody input[type='checkbox']").removeAttr('checked');
+                        $("#table-code-table #select-all").removeAttr('checked');
+
+		                setTimeout(function() {
+						    $('#flash_message_custom').fadeOut('fast');
+						}, 2000);
+	                }
+	            });
+        	}
+		});
+	});
+	
+</script>

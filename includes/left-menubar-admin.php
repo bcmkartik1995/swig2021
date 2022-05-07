@@ -17,6 +17,12 @@
 							<span class="nav-text">Dashboard</span>
 						</a>
 					</li>
+					<li <?php if (in_array($CUR_PAGE_NAME, array('users.php'))) { echo "class='active1'";} ?>>
+						<a href="users.php" onclick="location.href='users.php'">
+							<span class="nav-icon"><i class="material-icons">contacts</i></span>
+							<span class="nav-text">Users</span>
+						</a>
+					</li>
 					<li class='active' <?php if (in_array($CUR_PAGE_NAME, array('view-all-registered-users.php', 'add-edit-app.php', 'view-all-apps.php', 'view-all-menus.php', 'add-edit-menu.php', 'view-all-streams.php', 'add-edit-stream.php', 'view-all-sub-categories.php', 'add-edit-sub-category.php'))) { echo "class='active'";} ?>>
 						<a>
 							<span class="nav-caret"><i class="fa fa-caret-down"></i></span>

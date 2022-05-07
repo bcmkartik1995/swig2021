@@ -559,7 +559,7 @@ include_once('video-player.php');
 ?>
 <!-- End of footer-->
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script>	
 	<?php $a=0;?>
 manageStreamEntry('<?=$streamEntryBy?>');

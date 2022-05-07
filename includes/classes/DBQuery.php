@@ -96,7 +96,6 @@ class DBQuery extends DatabaseAccess
 		}
 
 		$query = "INSERT INTO $tblName SET $setStr";
-//echo $query;die;
 		if ($trace) {
 			echo "<br>" . $query . "<br>";
 			exit;
@@ -243,5 +242,14 @@ class DBQuery extends DatabaseAccess
 
 		$emailFormatInfoArr = $this->getRecord($trace, '*', 'tbl_email_format', $whereCls);
 		return $emailFormatInfoArr;
+	}
+
+
+	public function customsqlquery($query)
+	{
+        $objDbAccess = new DatabaseAccess();
+		$resultArray = $objDbAccess->selectRecord($query);
+		unset($objDbAccess);
+		return $resultArray;
 	}
 }

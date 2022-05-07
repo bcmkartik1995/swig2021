@@ -24,8 +24,21 @@
 		$appCodesStr = "(appCode_FK = '$appCodesStr')";
 		$whereCls .= " AND ($appCodesStr)";
 	}
+
+	$per_page_record = 10;  // Number of entries to show in a page.   
+        // Look for a GET variable page if not found default is 1.        
+    if (isset($_GET["page"])) {    
+        $page  = $_GET["page"];    
+    }    
+    else {    
+      $page=1;    
+    }    
+
+    $start_from = ($page-1) * $per_page_record;     
+
 	
-	$masterCodeInfoArr = $objDBQuery->getRecord(0, array('*'), 'tbl_master_codes', $whereCls, '', '', 'createdOn', 'ASC');
+	
+	$masterCodeInfoArr = $objDBQuery->getRecord(0, array('*'), 'tbl_master_codes', $whereCls, $start_from, $per_page_record, 'createdOn', 'ASC');
 	$_SESSION['SESSION_QRY_STRING_FOR_SUB_CATE'] = "keyword=$keyword&status=$status&appCode=$appCode";
 ?>
 <!-- Start of content -->
@@ -81,18 +94,20 @@
 					{
 						$numOfRows = count($masterCodeInfoArr);
 						//danger
+						$srno = $start_from;
 						for ($i = 0; $i < $numOfRows; $i++)
 						{
 							$appCode = $masterCodeInfoArr[$i]['appCode_FK'];
 						    $appNameArr = $objDBQuery->getRecord(0, array('appName'), 'tbl_apps',array('appCode' => $appCode), '', '', 'createdOn', 'ASC');	
 ?>
 							 <tr>
-								<td><?=$i+1?>.</td>
+								<td><?=$srno+1?>.</td>
 								<td><?php echo $masterCodeInfoArr[$i]['masterCode']?></td>
 								<td><?php echo $appNameArr[0]['appName'];?></td>
 								<td class="text-center"><?php echo $masterCodeInfoArr[$i]['shortDescription'];?></td>
 							 </tr>
 <?php
+                        $srno = $srno+1;
 						}
 				}
 				else
@@ -107,14 +122,40 @@
                 </table>
 			</div>
             <!-- End of table responsive --> 
-			<div class="pagination_box" style='display:none;'>
-			<ul class="pagination">
-				<li><span class="glyphicon glyphicon-menu-left"></span></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><span class="glyphicon glyphicon-menu-right"></span></li>
-			</ul>
+			
+			<div class="padding" style="padding-top: 0px;">
+	
+				<div class="pagination">    
+				      <?php  
+				        $UsersCount = $objDBQuery->getRecordCount(0, 'tbl_master_codes', $whereCls, '');     
+				        $total_records = $UsersCount;     
+				            
+				        // Number of pages required.   
+				        $total_pages = ceil($total_records / $per_page_record);     
+				        $pagLink = "";       
+				      
+				        if($page>=2){   
+				            echo "<a href='view-all-master-codes.php?page=".($page-1)."'>  Prev </a>";   
+				        }       
+				                   
+				        for($i = max(1, $page - 5); $i <= min($page + 5, $total_pages); $i++){   
+				          if ($i == $page) {   
+				              $pagLink .= "<a class = 'active' href='view-all-master-codes.php?page="  
+				                                                .$i."'>".$i." </a>";   
+				          }               
+				          else  {   
+				              $pagLink .= "<a href='view-all-master-codes.php?page=".$i."'>   
+				                                                ".$i." </a>";     
+				          }   
+				        };     
+				        echo $pagLink;   
+				  
+				        if($page<$total_pages){   
+				            echo "<a href='view-all-master-codes.php?page=".($page+1)."'>  Next </a>";   
+				        }   
+				  
+				      ?>    
+				</div> 
 			</div>
 		</div>
 	</div>
