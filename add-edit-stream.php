@@ -8,7 +8,7 @@
 
 	$enkey = getValPostORGet('enkey', 'B');
 	$arrDBFld = array('streamId_PK','streamCode', 'menuCode_FK', 'appCode_FK', 'streamTitle', 'streamUrl', 'streamImg', 'streamThumbnail', 'streamdescription', 'staring', 'streamTrailerUrl', 'streamDuration', 'directedBy', 'writtenBy', 'producedBy', 'genre', 'language', 'awards', 'rating', 'review', 'isPremium', 'amount', 'subscriptionExpiredFaq', 'subscriptionExpired', 'streamFeedUrl', 'stream_type',
-	'streamEntryBy', 'status', 'isStreamFeatured', 'subCatCode_FK', 'dontePerViewSelected', 'isDontePerView', 'timezoneOffset', 'eventEndDateTime', 'eventStDateTime', 'linearStreamPlayingMethod', 'linearStreamDaiKey', 'isShowOnlyUpcomingSection');	
+	'streamEntryBy', 'status', 'isStreamFeatured', 'subCatCode_FK', 'dontePerViewSelected', 'isDontePerView', 'timezoneOffset', 'eventEndDateTime', 'eventStDateTime', 'linearStreamPlayingMethod', 'linearStreamDaiKey', 'isShowOnlyUpcomingSection', 'andriod_app_link', 'apple', 'roku', 'fire', 'footer_link', 'footer_email', 'footer_text');	
 	if ($enkey)
 	{
 		$btnTxt = 'Submit';
@@ -18,18 +18,24 @@
 
 		$infoArr = $objDBQuery->getRecord(0, $arrDBFld, 'tbl_streams', array('streamCode' => $enkey));	
 
-		//echo "<pre>";print_r($infoArr);die; 
 		$stream_id = $infoArr[0]['streamId_PK'];
 		$stream_type = $infoArr[0]['stream_type'];
 		$streamImg = $infoArr[0]['streamImg'];
 		$streamThumbnail = $infoArr[0]['streamThumbnail'];
 		$backBtnURL = "view-all-streams.php?".$_SESSION['SESSION_QRY_STRING_FOR_STREAM'];
 
+        $StreampaymentOptions = array('streamId_FK', 'stream_guid', 'payment_type', 'fixed_ticket_amount', 'minimum_donation_amount', 'donation_amount_1', 'donation_amount_2', 'donation_amount_3', 'donation_amount_4', 'donation_amount_5', 'donation_amount_6');
+
+        $PaymentinfoArr = $objDBQuery->getRecord(0, $StreampaymentOptions, 'tbl_stream_payment_options', array('streamId_FK' => $stream_id));
+        if(isset($PaymentinfoArr[0]['payment_type'])){
+        	 $payment_type = $PaymentinfoArr[0]['payment_type'];
+        } else {
+        	$payment_type = '';
+        }	
+
 		if($stream_type != '' && $stream_type == 'M'){
 			$multiEnvtDBFld = array('stream_date_PK', 'streamId_FK', 'eventStDateTime', 'eventEndDateTime', 'timezoneOffset');
 			$MultiEvtinfoArr = $objDBQuery->getRecord(0, $multiEnvtDBFld, 'tbl_stream_dates', array('streamId_FK' => $stream_id));
-
-			//echo "<pre>";print_r($MultiEvtinfoArr);die;
 		}
 	}
 	else
@@ -38,7 +44,8 @@
 		$postAction = 'addAction';
 		$awsomeIcon = "fa fa-plus";
 		$pageTitleTxt = "Add New Stream";
-	
+	    $payment_type = '';
+	    $stream_type = '';
 		foreach ($arrDBFld AS $dbFldName)
 		{
 			$infoArr[0][$dbFldName] = @$_SESSION['session_'.$dbFldName];
@@ -508,6 +515,161 @@ $_SESSION['formValidation'] = $valParamArray;
 ?>
 						</div>
 					</div>
+					
+
+
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Android app link:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control" type="text" name="andriod_app_link" id="andriod_app_link" maxlength="255" value="<?=$infoArr[0]['andriod_app_link']?>">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Apple:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control" type="text" name="apple" id="apple" maxlength="255" value="<?=$infoArr[0]['apple']?>">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Roku:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control" type="text" name="roku" id="roku" maxlength="255" value="<?=$infoArr[0]['roku']?>">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Fire:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control" type="text" name="fire" id="fire" maxlength="255" value="<?=$infoArr[0]['fire']?>">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Footer link:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control" type="text" name="footer_link" id="footer_link" maxlength="255" value="<?=$infoArr[0]['footer_link']?>">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Footer email:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control" type="text" name="footer_email" id="footer_email" maxlength="255" value="<?=$infoArr[0]['footer_email']?>">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Footer text:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control" type="text" name="footer_text" id="footer_text" value="<?=$infoArr[0]['footer_text']?>">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Payment Type:</label>
+						<div class="col-sm-3 col-md-2">
+<?php			
+							makeDropDown('payment_type', array_keys($ARR_PAYMENT_TYPE), array_values($ARR_PAYMENT_TYPE), $payment_type, "class='selectpicker' onChange='managePaymentType()' data-size='4'", '', '', 'N');
+?>	
+						</div>
+					</div>
+
+                    <?php if($payment_type == 'F'){
+                        $class_name_f='';
+                    }else {
+                    	$class_name_f='displayNone';
+                    }?>
+                    <div id="fixed-payment" class="<?php echo $class_name_f;?>">
+                    	<div class="form-group row">
+							<label class="col-sm-12 col-md-2 form-control-label">Fixed ticket amount:</label>
+							<div class="col-sm-12 col-md-10">
+								
+								<?php if(isset($PaymentinfoArr[0]['fixed_ticket_amount'])){?>
+                                     <input class="form-control" type="number" name="payment_option[fixed_ticket_amount]" id="fixed_ticket_amount" min="0" value="<?=$PaymentinfoArr[0]['fixed_ticket_amount']?>" step=".01">
+								<?php } else { ?>
+									<input class="form-control" type="number" name="payment_option[fixed_ticket_amount]" id="fixed_ticket_amount" min="0" value="" step=".01">
+								<?php } ?>
+							</div>
+						</div>
+                    </div>
+
+                    <?php if($payment_type == 'D'){
+                        $class_name='';
+                    }else {
+                    	$class_name='displayNone';
+                    }?>
+
+                    <div id="donation-payment" class="<?php echo $class_name; ?>">
+                    	<div class="form-group row">
+							<label class="col-sm-12 col-md-2 form-control-label">Minimum Donation Amount:</label>
+							<div class="col-sm-12 col-md-10">
+								<?php if(isset($PaymentinfoArr[0]['minimum_donation_amount'])){?>
+                                     <input class="form-control" type="number" name="payment_option[minimum_donation_amount]" id="minimum_donation_amount" min="0" value="<?=$PaymentinfoArr[0]['minimum_donation_amount']?>" step=".01">
+								<?php } else { ?>
+									<input class="form-control" type="number" name="payment_option[minimum_donation_amount]" id="minimum_donation_amount" min="0" value="" step=".01">
+								<?php } ?>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 form-control-label">Donation Amount 1:</label>
+							<div class="col-sm-12 col-md-10">
+								<?php if(isset($PaymentinfoArr[0]['donation_amount_1'])){?>
+                                     <input class="form-control" type="number" name="payment_option[donation_amount_1]" id="donation_amount_1" min="0" value="<?=$PaymentinfoArr[0]['donation_amount_1']?>">
+								<?php } else { ?>
+									<input class="form-control" type="number" name="payment_option[donation_amount_1]" id="donation_amount_1" min="0" value="">
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 form-control-label">Donation Amount 2:</label>
+							<div class="col-sm-12 col-md-10">
+								<?php if(isset($PaymentinfoArr[0]['donation_amount_2'])){?>
+                                     <input class="form-control" type="number" name="payment_option[donation_amount_2]" id="donation_amount_2" min="0" value="<?=$PaymentinfoArr[0]['donation_amount_2']?>">
+								<?php } else { ?>
+									<input class="form-control" type="number" name="payment_option[donation_amount_2]" id="donation_amount_2" min="0" value="">
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 form-control-label">Donation Amount 3:</label>
+							<div class="col-sm-12 col-md-10">
+								<?php if(isset($PaymentinfoArr[0]['donation_amount_3'])){?>
+                                     <input class="form-control" type="number" name="payment_option[donation_amount_3]" id="donation_amount_3" min="0" value="<?=$PaymentinfoArr[0]['donation_amount_3']?>">
+								<?php } else { ?>
+									<input class="form-control" type="number" name="payment_option[donation_amount_3]" id="donation_amount_3" min="0" value="">
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 form-control-label">Donation Amount 4:</label>
+							<div class="col-sm-12 col-md-10">
+								<?php if(isset($PaymentinfoArr[0]['donation_amount_4'])){?>
+                                     <input class="form-control" type="number" name="payment_option[donation_amount_4]" id="donation_amount_4" min="0" value="<?=$PaymentinfoArr[0]['donation_amount_4']?>">
+								<?php } else { ?>
+									<input class="form-control" type="number" name="payment_option[donation_amount_4]" id="donation_amount_4" min="0" value="">
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 form-control-label">Donation Amount 5:</label>
+							<div class="col-sm-12 col-md-10">
+								<?php if(isset($PaymentinfoArr[0]['donation_amount_5'])){?>
+                                     <input class="form-control" type="number" name="payment_option[donation_amount_5]" id="donation_amount_5" min="0" value="<?=$PaymentinfoArr[0]['donation_amount_5']?>">
+								<?php } else { ?>
+									<input class="form-control" type="number" name="payment_option[donation_amount_5]" id="donation_amount_5" min="0" value="">
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-12 col-md-2 form-control-label">Donation Amount 6:</label>
+							<div class="col-sm-12 col-md-10">
+								<?php if(isset($PaymentinfoArr[0]['donation_amount_6'])){?>
+                                     <input class="form-control" type="number" name="payment_option[donation_amount_6]" id="donation_amount_6" min="0" value="<?=$PaymentinfoArr[0]['donation_amount_6']?>">
+								<?php } else { ?>
+									<input class="form-control" type="number" name="payment_option[donation_amount_6]" id="donation_amount_6" min="0" value="">
+								<?php } ?>
+							</div>
+						</div>
+                    </div>
+                    
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star">*</span>Status:</label>
 						<div class="col-sm-12 col-md-10">
@@ -517,6 +679,7 @@ $_SESSION['formValidation'] = $valParamArray;
 						<span id='span_status' class='form_error'><?php showErrorMessage('status'); ?></span>
 						</div>
 					</div>
+
 					<!-- Start of button -->
 					<div class="form-groups row">
 						<div class="col-sm-12 col-md-offset-2 col-md-10 btn_space_gap">
@@ -600,6 +763,22 @@ function manageStreamType()
 		    add_more.style.display = 'none';
 		}
 		single_evt_sec.style.display = 'block';
+	}
+}
+
+function managePaymentType()
+{
+	var payment_type = document.getElementById('payment_type');
+	
+	if(payment_type.value == 'F'){
+        $("#fixed-payment").removeClass('displayNone');
+        $("#donation-payment").addClass('displayNone');
+	} else if(payment_type.value == 'D') {
+		$("#donation-payment").removeClass('displayNone');
+        $("#fixed-payment").addClass('displayNone');
+	} else {
+		$("#fixed-payment").addClass('displayNone');
+        $("#donation-payment").addClass('displayNone');
 	}
 }
 
