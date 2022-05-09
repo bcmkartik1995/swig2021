@@ -51,6 +51,7 @@ $ARR_TCKT_STATUS = array('N' => 'Not Sell Yet', 'F' => 'Sold By Offline', 'O' =>
 $LINEAR_PLAYING_METHOD = array('U' => 'URL/VAST Tag', 'D' => 'DAI Key');
 $ARR_STREAM_TYPE = array("S" => "Single stream", "M" => "Multi stream");
 $ARR_PAYMENT_TYPE = array("F" => "Fixed", "D" => "Donations");
+$ARR_IS_SSL_ENABLE = array("true" => "Yes", "false" => "No");
 
 $ARR_ACTIVITES = array (
 				'login' => 'Login',

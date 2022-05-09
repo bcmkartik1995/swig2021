@@ -178,21 +178,6 @@
 					?>	
 						</div>
 					</div>
-
-
-					<div class="form-group row">
-						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star"></span>ShareId:</label>
-						<div class="col-sm-12 col-md-10">
-							<input class="form-control input_smallbox" type="text" name="shareId" id="usershareId" maxlength="150" value="">
-						</div>
-					</div>
-
-					<div class="form-group row">
-						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star"></span>GoogleId:</label>
-						<div class="col-sm-12 col-md-10">
-							<input class="form-control input_smallbox" type="text" name="GoogleId" id="userGoogleId" maxlength="150" value="">
-						</div>
-					</div>
 										
 					<!-- Start of button -->
 					<div class="form-groups row">
