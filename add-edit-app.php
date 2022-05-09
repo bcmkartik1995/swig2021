@@ -5,7 +5,7 @@
 	$enkey = getValPostORGet('enkey', 'B');
 	if ($_SESSION['userDetails']['accountType'] != 'S' && $enkey == '') checkPageAccessPermission('');
 
-	$arrDBFld = array('appId_PK', 'appCode', 'appName', 'feedback_email', 'feedback_label', 'status', 'isLiveTVSubCatLblShow', 'isOnDemandSubCatLblShow', 'isDonatePerViewSubCatLblShow', 'isDonatePerViewLiveEventSubCatLblShow','app_logo');	
+	$arrDBFld = array('appId_PK', 'appCode', 'appName', 'feedback_email', 'feedback_label', 'status', 'isLiveTVSubCatLblShow', 'isOnDemandSubCatLblShow', 'isDonatePerViewSubCatLblShow', 'isDonatePerViewLiveEventSubCatLblShow','app_logo', 'shareId', 'GoogleId', 'mail_smtp_host', 'mail_smtp_port', 'mail_smtp_ssl_enable', 'mail_smtp_username', 'mail_smtp_password');	
 	if ($enkey)
 	{
 		$btnTxt = 'Submit';
@@ -162,7 +162,56 @@
 					</div>
 					<!-- End of banner -->
 
+                    <div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star"></span>ShareId:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control input_smallbox" type="text" name="shareId" id="usershareId" maxlength="150" value="<?=$infoArr[0]['shareId']?>">
+						</div>
+					</div>
 
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star"></span>GoogleId:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control input_smallbox" type="text" name="GoogleId" id="userGoogleId" maxlength="150" value="<?=$infoArr[0]['GoogleId']?>">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star"></span>Host:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control input_smallbox" type="text" name="mail_smtp_host" id="mail_smtp_host" maxlength="150" value="<?=$infoArr[0]['mail_smtp_host']?>">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star"></span>Port:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control input_smallbox" type="number" name="mail_smtp_port" id="mail_smtp_port" value="<?=$infoArr[0]['mail_smtp_port']?>">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label">Is ssl enable?:</label>
+						<div class="col-sm-12 col-md-10">
+<?php			
+							makeDropDown('mail_smtp_ssl_enable', array_keys($ARR_IS_SSL_ENABLE), array_values($ARR_IS_SSL_ENABLE), $infoArr[0]['mail_smtp_ssl_enable'], "class='selectpicker' data-size='4'", '', '', 'N');
+?>	
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star"></span>Username:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control input_smallbox" type="text" name="mail_smtp_username" id="mail_smtp_username" maxlength="150" value="<?=$infoArr[0]['mail_smtp_username']?>">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star"></span>Password:</label>
+						<div class="col-sm-12 col-md-10">
+							<input class="form-control input_smallbox" type="password" name="mail_smtp_password" id="mail_smtp_password" maxlength="150" value="<?=$infoArr[0]['mail_smtp_password']?>">
+						</div>
+					</div>
 
 					<!-- Start of button -->
 					<div class="form-groups row">
