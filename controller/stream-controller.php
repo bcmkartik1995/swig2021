@@ -137,6 +137,23 @@ switch ($accessCase)
 		break;
 	
 	case 'addAction':		
+	    if($_POST['stream_type'] != '' && $_POST['stream_type'] == 'M'){
+            $MultiEventdata = $_POST['MultiEvent'];
+        } 
+
+        if($_POST['payment_type'] != ''){
+            $payment_type = $_POST['payment_type'];
+        }
+
+        if(isset($_POST['payment_option']) && $_POST['payment_option'] != ''){
+            $payment_options = $_POST['payment_option'];
+        } 
+
+        unset($_POST['MultiEvent']);
+        unset($_POST['total_chq']);
+        unset($_POST['payment_type']);
+        unset($_POST['payment_option']);
+
 		$_POST = trimFormValue(0, $_POST);
 		
 		$headerRedirectUrl = '../add-edit-stream.php?'.$_SESSION['SESSION_QRY_STRING_FOR_STREAM'];;
@@ -164,8 +181,46 @@ switch ($accessCase)
 			$dataArr['updatedOn'] = date(LONG_MYSQL_DATE_FORMAT);	
 			if(!array_key_exists($dataArr['dontePerViewSelected']))  $dataArr['dontePerViewSelected'] = 1;
 			$dataArr[$enckeyDBFldName] = randomMD5();
-			if ($objDBQuery->addRecord(0, $dataArr, $tblName))
+			if ($id = $objDBQuery->addRecord(0, $dataArr, $tblName))
 			{				
+				//echo "<pre>";print_r($dataArr);die; 
+				if($dataArr['stream_type'] != '' && $dataArr['stream_type'] == 'M'){
+	                $streamInfoArr = $objDBQuery->getRecord(0, array('streamId_PK'), $tblName, array('streamId_PK' => $id));
+	                
+	                $objDBQuery->dropRecord(0, 'tbl_stream_dates',array("streamId_FK" => $streamInfoArr[0]['streamId_PK']));
+	                if($dataArr['eventStDateTime'] != '' && $dataArr['eventEndDateTime'] != ''){
+	                	
+	                	$tbl_sstream_dates = array("streamId_FK" => $streamInfoArr[0]['streamId_PK'], "eventStDateTime" => $dataArr['eventStDateTime'], "eventEndDateTime" => $dataArr['eventEndDateTime'], "timezoneOffset" => $dataArr['timezoneOffset'], "active_status" => "A");
+
+	                    $objDBQuery->addRecord(0, $tbl_sstream_dates, 'tbl_stream_dates');
+	                }
+	                foreach($MultiEventdata as $evt){
+	                	if($evt['eventStDateTime'] != '' && $evt['eventEndDateTime'] != ''){
+
+	                		$tbl_stream_dates = array("streamId_FK" => $streamInfoArr[0]['streamId_PK'], "eventStDateTime" => $evt['eventStDateTime'], "eventEndDateTime" => $evt['eventEndDateTime'], "timezoneOffset" => $evt['timezoneOffset'], "active_status" => "A");
+
+	                        $objDBQuery->addRecord(0, $tbl_stream_dates, 'tbl_stream_dates');
+	                	}
+	                	
+	                }
+	                
+	                $dataArr['eventStDateTime'] = NULL;
+	                $dataArr['eventEndDateTime'] = NULL;
+				}
+
+				if($payment_type != ''){
+					$streamInfoArr = $objDBQuery->getRecord(0, array('streamId_PK','streamCode'), $tblName, array('streamId_PK' => $id));
+
+
+	                $payment_options['payment_type'] = $payment_type;
+	                $payment_options['streamId_FK'] = $id;
+	                $payment_options['stream_guid'] = $streamInfoArr[0]['streamCode'];
+
+	                $objDBQuery->addRecord(0, $payment_options, 'tbl_stream_payment_options');
+				}
+
+
+
 				$menuCode = $_POST['menuCode'];
 				updateStreamOrder($objDBQuery, $menuCode);
 				$msg = "New $msgTxt has been added successfully.";				
@@ -189,12 +244,22 @@ switch ($accessCase)
 		break;
 
 	case 'updateAction':
-	    
         if($_POST['stream_type'] != '' && $_POST['stream_type'] == 'M'){
             $MultiEventdata = $_POST['MultiEvent'];
         } 
+
+        if($_POST['payment_type'] != ''){
+            $payment_type = $_POST['payment_type'];
+        }
+
+        if(isset($_POST['payment_option']) && $_POST['payment_option'] != ''){
+            $payment_options = $_POST['payment_option'];
+        } 
+
         unset($_POST['MultiEvent']);
         unset($_POST['total_chq']);
+        unset($_POST['payment_type']);
+        unset($_POST['payment_option']);
 		$_POST = trimFormValue(0, $_POST);
 		$enkey = $_POST['enkey'];
 		//$appName = $_POST['appName'];
@@ -216,7 +281,7 @@ switch ($accessCase)
 			$dataArr = prepareKeyValue4Msql(0, $_POST, $frmKeyExcludeArr);
 			$dataArr['updatedOn'] = date(LONG_MYSQL_DATE_FORMAT);
 			if($dataArr['dontePerViewSelected'] == '')  $dataArr['dontePerViewSelected'] = 1;
-			$infoArr = $objDBQuery->getRecord(0, array('streamImg', 'streamThumbnail'), $tblName, array($enckeyDBFldName => $enkey));
+			$infoArr = $objDBQuery->getRecord(0, array('streamImg', 'streamThumbnail','	streamId_PK'), $tblName, array($enckeyDBFldName => $enkey));
 			$fileName =  fileUpload(0, 'streamImg', $assetDirName);
 			if ($fileName) 
 			{
@@ -255,6 +320,24 @@ switch ($accessCase)
                 $dataArr['eventStDateTime'] = NULL;
                 $dataArr['eventEndDateTime'] = NULL;
 			}
+
+			if($payment_type != ''){
+                $payment_options['payment_type'] = $payment_type;
+                $PaymentinfoArr = $objDBQuery->getRecord(0, array('tbl_stream_payment_options_PK'), 'tbl_stream_payment_options', array('streamId_FK' => $infoArr[0]['streamId_PK']));
+
+                if(isset($PaymentinfoArr) && !empty($PaymentinfoArr)){
+                	
+                    $objDBQuery->updateRecord(0, $payment_options, 'tbl_stream_payment_options', array('tbl_stream_payment_options_PK' => $PaymentinfoArr[0]['tbl_stream_payment_options_PK'])); 
+                } else {
+                	
+                	$payment_options['streamId_FK'] = $infoArr[0]['streamId_PK'];
+                	$payment_options['stream_guid'] = $enkey;
+
+                	$objDBQuery->addRecord(0, $payment_options, 'tbl_stream_payment_options');
+                }
+			}
+
+
 			if ($objDBQuery->updateRecord(0, $dataArr, $tblName, array($enckeyDBFldName => $enkey)))
 			{	
 					
