@@ -408,11 +408,10 @@ $_SESSION['formValidation'] = $valParamArray;
 										  	<div class="time_text">Start Time:</div>
 										  	<div class="col_date">								 
 											<div class='input-group date' id='datetimepicker'>
-												<input type='text' class="form-control" value="<?=$eventinfo['eventStDateTime']?>" name="MultiEvent[<?php echo $eventcount; ?>][eventStDateTime]"/>
-												<span class="input-group-addon">
-													<span class="glyphicon glyphicon-calendar">
-												</span>
-												</span>
+												<input type='datetime-local' class="form-control" value="<?=$eventinfo['eventStDateTime']?>" name="MultiEvent[<?php echo $eventcount; ?>][eventStDateTime]"/>
+												<!-- <span class="input-group-addon">
+													<span class="glyphicon glyphicon-calendar"></span>
+												</span> -->
 											</div>
 											</div>
 										</div>
@@ -420,11 +419,10 @@ $_SESSION['formValidation'] = $valParamArray;
 											<div class="time_text">End Time:</div>
 											<div class="col_date">				
 												<div class='input-group date' id='datetimepicker1'>
-													<input type='text' class="form-control" value="<?=$eventinfo['eventEndDateTime']?>" name="MultiEvent[<?php echo $eventcount; ?>][eventEndDateTime]"/>
-													<span class="input-group-addon">
-														<span class="glyphicon glyphicon-calendar">
-													</span>
-													</span>
+													<input type='datetime-local' class="form-control" value="<?=$eventinfo['eventEndDateTime']?>" name="MultiEvent[<?php echo $eventcount; ?>][eventEndDateTime]"/>
+													<!-- <span class="input-group-addon">
+														<span class="glyphicon glyphicon-calendar"></span>
+													</span> -->
 												</div>
 											</div>
 										</div>
@@ -456,11 +454,10 @@ $_SESSION['formValidation'] = $valParamArray;
 								  	<div class="time_text">Start Time:</div>
 								  	<div class="col_date">								 
 									<div class='input-group date' id='datetimepicker'>
-										<input type='text' class="form-control" value="<?=$infoArr[0]['eventStDateTime']?>" name="eventStDateTime"/>
-										<span class="input-group-addon">
-											<span class="glyphicon glyphicon-calendar">
-										</span>
-										</span>
+										<input type='datetime-local' class="form-control" value="<?=$infoArr[0]['eventStDateTime']?>" name="eventStDateTime"/>
+										<!-- <span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span> -->
 									</div>
 									</div>
 								</div>
@@ -468,11 +465,10 @@ $_SESSION['formValidation'] = $valParamArray;
 									<div class="time_text">End Time:</div>
 									<div class="col_date">				
 										<div class='input-group date' id='datetimepicker1'>
-											<input type='text' class="form-control" value="<?=$infoArr[0]['eventEndDateTime']?>" name="eventEndDateTime"/>
-											<span class="input-group-addon">
-												<span class="glyphicon glyphicon-calendar">
-											</span>
-											</span>
+											<input type='datetime-local' class="form-control" value="<?=$infoArr[0]['eventEndDateTime']?>" name="eventEndDateTime"/>
+											<!-- <span class="input-group-addon">
+												<span class="glyphicon glyphicon-calendar"></span>
+											</span> -->
 										</div>
 									</div>
 								</div>
@@ -786,7 +782,7 @@ function AddMoreEventSec(){
   var new_chq_no = parseInt($('#total_chq').val());
   var new_end_no = new_chq_no + 1;
 
-  var new_input = '<div class="col-sm-12 col-md-10" style="margin-top: 10px;padding-left: 3px; float:right;"><div class="time_box"> <div class="time_text">Start Time:</div> <div class="col_date"> <div class="input-group date" id="datetimepicker'+ new_chq_no +'"><input type="text" class="form-control" value="" name="MultiEvent['+new_chq_no+'][eventStDateTime]"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>  </div> </div></div> <div class="time_box"><div class="time_text">End Time:</div><div class="col_date"><div class="input-group date" id="datetimepicker'+ new_end_no +'"><input type="text" class="form-control" value="" name="MultiEvent['+new_chq_no+'][eventEndDateTime]"><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div></div></div><div class="time_box" style="display:flex;"><div class="time_text time_region">Region:</div><div id="AMEtimeoffsetsec'+ new_chq_no +'"></div></div></div>';
+  var new_input = '<div class="col-sm-12 col-md-10" style="margin-top: 10px;padding-left: 3px; float:right;"><div class="time_box"> <div class="time_text">Start Time:</div> <div class="col_date"> <div class="input-group date" id="datetimepicker'+ new_chq_no +'"><input type="datetime-local" class="form-control" value="" name="MultiEvent['+new_chq_no+'][eventStDateTime]"> </div> </div></div> <div class="time_box"><div class="time_text">End Time:</div><div class="col_date"><div class="input-group date" id="datetimepicker'+ new_end_no +'"><input type="datetime-local" class="form-control" value="" name="MultiEvent['+new_chq_no+'][eventEndDateTime]"></div></div></div><div class="time_box" style="display:flex;"><div class="time_text time_region">Region:</div><div id="AMEtimeoffsetsec'+ new_chq_no +'"></div></div></div>';
 
   //$('#timezoneOffset').find('option').clone().appendTo('#timezoneOffset'+new_chq_no);
 
