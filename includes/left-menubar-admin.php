@@ -17,7 +17,7 @@
 							<span class="nav-text">Dashboard</span>
 						</a>
 					</li>
-					<li <?php if (in_array($CUR_PAGE_NAME, array('users.php'))) { echo "class='active1'";} ?>>
+					<li <?php if (in_array($CUR_PAGE_NAME, array('users.php'))) { echo "class='custom_active'";} ?>>
 						<a href="users.php" onclick="location.href='users.php'">
 							<span class="nav-icon"><i class="material-icons">contacts</i></span>
 							<span class="nav-text">Users</span>

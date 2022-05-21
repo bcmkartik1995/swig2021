@@ -578,9 +578,9 @@ $_SESSION['formValidation'] = $valParamArray;
 							<div class="col-sm-12 col-md-10">
 								
 								<?php if(isset($PaymentinfoArr[0]['fixed_ticket_amount'])){?>
-                                     <input class="form-control" type="number" name="payment_option[fixed_ticket_amount]" id="fixed_ticket_amount" min="0" value="<?=$PaymentinfoArr[0]['fixed_ticket_amount']?>" step=".01">
+                                     <input class="form-control" type="number" name="payment_option[fixed_ticket_amount]" id="fixed_ticket_amount" min="0" value="<?=$PaymentinfoArr[0]['fixed_ticket_amount']?>">
 								<?php } else { ?>
-									<input class="form-control" type="number" name="payment_option[fixed_ticket_amount]" id="fixed_ticket_amount" min="0" value="" step=".01">
+									<input class="form-control" type="number" name="payment_option[fixed_ticket_amount]" id="fixed_ticket_amount" min="0" value="">
 								<?php } ?>
 							</div>
 						</div>

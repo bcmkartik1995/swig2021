@@ -1,9 +1,11 @@
 <?php	
 	$SUBTITLE = 'Manage Apps';
 	include("includes/header.php");
+	//echo "<pre>";print_r($_GET['status']);
 	$keyword = getValPostORGet('keyword', 'B');
 	$status = getValPostORGet('status', 'B');
-	
+	$statusfilter = $status;
+	//echo "...".;die;
 	$assignedApp = $_SESSION['userDetails']['appCodes'];
 	$accountType = $_SESSION['userDetails']['accountType'];
 	
@@ -12,8 +14,13 @@
 	
 	if ($keyword) $whereCls .= " AND (appName  LIKE '%$keyword%')";
 	if ($status) $whereCls .= " AND status = '$status'";
-
-	$per_page_record = 10;  // Number of entries to show in a page.   
+	
+    if(isset($_GET['pagination'])){
+        $per_page_record = $_GET['pagination'];  // Number of entries to show in a page.
+    } else {
+        $per_page_record = 10;  // Number of entries to show in a page.
+    }
+	   
         // Look for a GET variable page if not found default is 1.        
     if (isset($_GET["page"])) {    
         $page  = $_GET["page"];    
@@ -24,7 +31,6 @@
 
     $start_from = ($page-1) * $per_page_record;     
 
-	
 	$appsInfoArr = $objDBQuery->getRecord(0, array('*'), 'tbl_apps', $whereCls, $start_from, $per_page_record, 'appName', 'ASC');	 
 	$_SESSION['SESSION_QRY_STRING'] = "keyword=$keyword&status=$status";
 ?>
@@ -63,6 +69,39 @@
 						<button type="submit" class="btn btn-sm blue_btn"><i class="fa fa-search "></i>&nbsp;Search</button>
 						<button type="reset" class="btn btn-sm yellow_btn" onClick="javascript:navigate2('<?php echo $CUR_PAGE_NAME?>');"><i class="fa fa-repeat "></i>&nbsp;Reset</button>
 					</span>
+				</form>
+			</div>
+
+			<div class="pagination-panel">
+				<form>
+				<label for="search">Records per page</label>
+				<select name="pagination" id="RPPapp" class="selectpicker" onchange="this.form.submit();">
+					<?php if($per_page_record == 10){?>
+					<option value="10" selected>10</option>
+				    <?php }else{?>
+					<option value="10">10</option>
+				    <?php } ?>
+				    <?php if($per_page_record == 15){?>
+					<option value="15" selected>15</option>
+				    <?php }else{?>
+					<option value="15">15</option>
+				    <?php } ?>
+					<?php if($per_page_record == 25){?>
+					<option value="25" selected>25</option>
+				    <?php }else{?>
+					<option value="25">25</option>
+				    <?php } ?>
+					<?php if($per_page_record == 50){?>
+					<option value="50" selected>50</option>
+				    <?php }else{?>
+					<option value="50">50</option>
+				    <?php } ?>
+				    <?php if($per_page_record == 100){?>
+					<option value="100" selected>100</option>
+				    <?php }else{?>
+					<option value="100">100</option>
+				    <?php } ?>
+				</select>
 				</form>
 			</div>
 			
@@ -159,23 +198,23 @@
 				        $pagLink = "";       
 				      
 				        if($page>=2){   
-				            echo "<a href='view-all-apps.php?page=".($page-1)."'>  Prev </a>";   
+				            echo "<a href='view-all-apps.php?page=".($page-1)."&keyword=".$keyword."&status=".$statusfilter."&pagination=".$per_page_record."'>  Prev </a>";   
 				        }       
 				                   
 				        for($i = max(1, $page - 5); $i <= min($page + 5, $total_pages); $i++){   
 				          if ($i == $page) {   
 				              $pagLink .= "<a class = 'active' href='view-all-apps.php?page="  
-				                                                .$i."'>".$i." </a>";   
+				                                                .$i."&keyword=".$keyword."&status=".$statusfilter."&pagination=".$per_page_record."'>".$i." </a>";   
 				          }               
 				          else  {   
-				              $pagLink .= "<a href='view-all-apps.php?page=".$i."'>   
+				              $pagLink .= "<a href='view-all-apps.php?page=".$i."&keyword=".$keyword."&status=".$statusfilter."&pagination=".$per_page_record."'>   
 				                                                ".$i." </a>";     
 				          }   
 				        };     
 				        echo $pagLink;   
 				  
 				        if($page<$total_pages){   
-				            echo "<a href='view-all-apps.php?page=".($page+1)."'>  Next </a>";   
+				            echo "<a href='view-all-apps.php?page=".($page+1)."&keyword=".$keyword."&status=".$statusfilter."&pagination=".$per_page_record."'>  Next </a>";   
 				        }   
 				  
 				      ?>    

@@ -3,6 +3,7 @@
 	include("includes/header.php");
 	$keyword = getValPostORGet('keyword', 'B');
 	$appCode = getValPostORGet('appCode', 'B');
+	$appCodefilter = $appCode;
 	$accountType = $_SESSION['userDetails']['accountType'];
 	
 	$whereCls = "1 AND appCode_FK = appCode ";
@@ -11,7 +12,11 @@
 	if ($keyword) $whereCls .= " AND (name LIKE '%$keyword%' OR username LIKE '%$keyword%' OR email LIKE '%$keyword%' OR instagram LIKE '%$keyword%')";
 	if ($appCode) $whereCls .= " AND (appCode = '$appCode')";
 	
-	$per_page_record = 10;  // Number of entries to show in a page.   
+	if(isset($_GET['pagination'])){
+        $per_page_record = $_GET['pagination'];  // Number of entries to show in a page.
+    } else {
+        $per_page_record = 10;  // Number of entries to show in a page.
+    }  
     // Look for a GET variable page if not found default is 1.        
     if (isset($_GET["page"])) {    
         $page  = $_GET["page"];    
@@ -64,6 +69,39 @@
 			</div>
 			
 			<!-- End of search panel -->
+
+			<div class="pagination-panel">
+				<form>
+				<label for="search">Records per page</label>
+				<select name="pagination" id="RPPapp" class="selectpicker" onchange="this.form.submit();">
+					<?php if($per_page_record == 10){?>
+					<option value="10" selected>10</option>
+				    <?php }else{?>
+					<option value="10">10</option>
+				    <?php } ?>
+				    <?php if($per_page_record == 15){?>
+					<option value="15" selected>15</option>
+				    <?php }else{?>
+					<option value="15">15</option>
+				    <?php } ?>
+					<?php if($per_page_record == 25){?>
+					<option value="25" selected>25</option>
+				    <?php }else{?>
+					<option value="25">25</option>
+				    <?php } ?>
+					<?php if($per_page_record == 50){?>
+					<option value="50" selected>50</option>
+				    <?php }else{?>
+					<option value="50">50</option>
+				    <?php } ?>
+				    <?php if($per_page_record == 100){?>
+					<option value="100" selected>100</option>
+				    <?php }else{?>
+					<option value="100">100</option>
+				    <?php } ?>
+				</select>
+				</form>
+			</div>
 			<!-- Start of table responsive -->
             <div class="table-responsive">
 				<table class="table table-striped blog_pages">
@@ -184,23 +222,23 @@
 				        $pagLink = "";       
 				      
 				        if($page>=2){   
-				            echo "<a href='view-all-registered-users.php?page=".($page-1)."'>  Prev </a>";   
+				            echo "<a href='view-all-registered-users.php?page=".($page-1)."&keyword=".$keyword."&appCode=".$appCodefilter."&pagination=".$per_page_record."'>  Prev </a>";   
 				        }       
 				        for($i = max(1, $page - 5); $i <= min($page + 5, $total_pages); $i++){           
 				        //for ($i=1; $i<=$total_pages; $i++) {   
 				          if ($i == $page) {   
 				              $pagLink .= "<a class = 'active' href='view-all-registered-users.php?page="  
-				                                                .$i."'>".$i." </a>";   
+				                                                .$i."&keyword=".$keyword."&appCode=".$appCodefilter."&pagination=".$per_page_record."'>".$i." </a>";   
 				          }               
 				          else  {   
-				              $pagLink .= "<a href='view-all-registered-users.php?page=".$i."'>   
+				              $pagLink .= "<a href='view-all-registered-users.php?page=".$i."&keyword=".$keyword."&appCode=".$appCodefilter."&pagination=".$per_page_record."'>   
 				                                                ".$i." </a>";     
 				          }   
 				        };     
 				        echo $pagLink;   
 				  
 				        if($page<$total_pages){   
-				            echo "<a href='view-all-registered-users.php?page=".($page+1)."'>  Next </a>";   
+				            echo "<a href='view-all-registered-users.php?page=".($page+1)."&keyword=".$keyword."&appCode=".$appCodefilter."&pagination=".$per_page_record."'>  Next </a>";   
 				        }   
 				  
 				      ?>    
