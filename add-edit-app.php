@@ -176,6 +176,8 @@
 						</div>
 					</div>
 
+					<div style="font-weight: 900;font-size: 16px; margin: 5px 5px 12px 2px;">Smtp Details</div>
+
 					<div class="form-group row">
 						<label class="col-sm-12 col-md-2 form-control-label"><span class="cla_star"></span>Host:</label>
 						<div class="col-sm-12 col-md-10">

@@ -2466,6 +2466,11 @@ body {
 .search-panel {
 	padding: 19px 4px 18px 19px;
 }
+
+.pagination-panel {
+    padding: 0px 0px 0px 19px;
+}
+
 .form-inline .form-group {
 	padding-right: 4px;
 }
@@ -2875,9 +2880,14 @@ body {
     background-color: rgba(0, 0, 0, .045);
 	color: #023575;
 }
+
 .navside .nav li.active, .navside .nav li.active {
     background-color: rgba(0, 0, 0, .025);
 	color: #ef323a;
+}
+.navside .nav li.custom_active, .navside .nav li.custom_active {
+    background-color: rgba(0, 0, 0, .025);
+    color: #ef323a;
 }
 .nav .nav-sub li.active a {
 	color: #ef323a;

@@ -15,8 +15,11 @@
 		$appCodes = $_SESSION['userDetails']['appCodes'];
 		$whereCls .= " AND accountType = 'A' AND appCodes = '".$appCodes."'";
 	}
-
-	$per_page_record = 10;  // Number of entries to show in a page.   
+    if(isset($_GET['pagination'])){
+        $per_page_record = $_GET['pagination'];  // Number of entries to show in a page.
+    } else {
+        $per_page_record = 10;  // Number of entries to show in a page.
+    }  
         // Look for a GET variable page if not found default is 1.        
     if (isset($_GET["page"])) {    
         $page  = $_GET["page"];    
@@ -46,6 +49,40 @@
 					<a href="add-edit-users.php" class="view-all"><i class="material-icons">&#xe02e;</i>Add New User</a>
             </div>
 			<!-- End of header area-->
+
+
+			<div class="pagination-panel">
+				<form>
+				<label for="search">Records per page</label>
+				<select name="pagination" id="RPPapp" class="selectpicker" onchange="this.form.submit();">
+					<?php if($per_page_record == 10){?>
+					<option value="10" selected>10</option>
+				    <?php }else{?>
+					<option value="10">10</option>
+				    <?php } ?>
+				    <?php if($per_page_record == 15){?>
+					<option value="15" selected>15</option>
+				    <?php }else{?>
+					<option value="15">15</option>
+				    <?php } ?>
+					<?php if($per_page_record == 25){?>
+					<option value="25" selected>25</option>
+				    <?php }else{?>
+					<option value="25">25</option>
+				    <?php } ?>
+					<?php if($per_page_record == 50){?>
+					<option value="50" selected>50</option>
+				    <?php }else{?>
+					<option value="50">50</option>
+				    <?php } ?>
+				    <?php if($per_page_record == 100){?>
+					<option value="100" selected>100</option>
+				    <?php }else{?>
+					<option value="100">100</option>
+				    <?php } ?>
+				</select>
+				</form>
+			</div>
 	
 			<!-- Start of table responsive -->
             <div class="table-responsive">
@@ -148,23 +185,23 @@
 	        $pagLink = "";       
 	      
 	        if($page>=2){   
-	            echo "<a href='users.php?page=".($page-1)."'>  Prev </a>";   
+	            echo "<a href='users.php?page=".($page-1)."&pagination=".$per_page_record."'>  Prev </a>";   
 	        }       
 	                   
 	        for($i = max(1, $page - 5); $i <= min($page + 5, $total_pages); $i++){   
 	          if ($i == $page) {   
 	              $pagLink .= "<a class = 'active' href='users.php?page="  
-	                                                .$i."'>".$i." </a>";   
+	                                                .$i."&pagination=".$per_page_record."'>".$i." </a>";   
 	          }               
 	          else  {   
-	              $pagLink .= "<a href='users.php?page=".$i."'>   
+	              $pagLink .= "<a href='users.php?page=".$i."&pagination=".$per_page_record."'>   
 	                                                ".$i." </a>";     
 	          }   
 	        };     
 	        echo $pagLink;   
 	  
 	        if($page<$total_pages){   
-	            echo "<a href='users.php?page=".($page+1)."'>  Next </a>";   
+	            echo "<a href='users.php?page=".($page+1)."&pagination=".$per_page_record."'>  Next </a>";   
 	        }   
 	  
 	      ?>    
