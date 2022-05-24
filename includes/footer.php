@@ -15,6 +15,7 @@
 <script src="<?php echo HTTP_PATH?>/js/bootstrap.js" type="text/javascript"></script>
 <script src="<?php echo HTTP_PATH?>/js/bootstrap-select.js" type="text/javascript"></script>
 <script src="<?php echo HTTP_PATH?>/js/common.js"></script>
+<script src="<?php echo HTTP_PATH?>/js/sort-stream.js"></script>
 <!-- autocomplelte js -->
 <link rel="stylesheet" href="<?php echo HTTP_PATH?>/css/autocomplete/jquery-ui.css" />
 <script src="<?php echo HTTP_PATH?>/js/autocomplete/jquery-ui.js"></script>

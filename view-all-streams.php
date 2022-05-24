@@ -23,6 +23,39 @@
 	$_SESSION['SESSION_QRY_STRING_FOR_STREAM'] = "keyword=$keyword&status=$status&appCode=$appCode&menuCode=$menuCode&menuName=$menuName&subCatCode_FK=$subCatCode_FK";
 ?>
 <!-- Start of content -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+  function slideout(){
+	  setTimeout(function(){
+		  $("#response").slideUp("slow", function () {
+		  });
+		}, 2000);
+  }
+
+  function showSort(){
+		$(".grab").show();
+		$("#response").hide();
+	    $(function () {
+		    $("#drackId").sortable({ opacity: 0.8, cursor: 'move', update: function() {
+            var order = $(this).sortable("serialize") + '&update=update';
+            $.post("updateStreamOrder.php", order, function(theResponse){
+						    $("#response").html(theResponse);
+                $("#response").slideDown('slow');  
+                slideout();
+						});
+		    }         
+		  });
+		});
+	} 
+</script>
+
+<script type="text/javascript">
+
+
+  
+</script>
 <div class="app-body">
 	<div class="padding">
 		<?php include_once('includes/flash-msg.php'); ?>
@@ -69,16 +102,21 @@
 					<span class="button_box">
 						<button type="submit" class="btn btn-sm blue_btn"><i class="fa fa-search "></i>&nbsp;Search</button>
 						<button type="reset" class="btn btn-sm yellow_btn" onClick="javascript:navigate2('<?php echo $CUR_PAGE_NAME?>?appCode=<?php echo $appCode?>&menuCode=<?php echo $menuCode?>');"><i class="fa fa-repeat "></i>&nbsp;Reset</button>
+						<button type="button" class="btn btn-sm btn-success" onclick="showSort()">sort</button>
+			            <button type="button" class="btn btn-sm btn-primary" onclick="window.location='export-all-streams.php?menuCode=<?php echo $menuCode?>';">Export</button> 
 					</span>
 				</form>
 			</div>
 			
 			<!-- End of search panel -->
 			<!-- Start of table responsive -->
+
             <div class="table-responsive">
-				<table class="table table-striped testimonial_table">
+            	<div id="response" class="alert-success"> </div>
+				<table class="table table-striped testimonial_table" id = "tblLocations">
 					<thead>
 					<tr>
+						<th class="grab" style="display: none;"></th>
 						<th class="width80">Sr. No.</th>
 						<th>Stream Info</th>							
 						<th class='width231'>Stream Rent Info</th>						
@@ -90,7 +128,8 @@
 						
 					</tr>
 					</thead>
-					<tbody>
+					<tbody id="drackId">
+
 <?php
 					if (is_array($streamsInfoArr) && !empty($streamsInfoArr))
 					{
@@ -161,7 +200,8 @@
 							$streamOrder = $streamsInfoArr[$i]['streamOrder'];
 ?>
 							
-							 <tr>
+							 <tr id="arrayorder_<?php echo $streamsInfoArr[$i]['streamId_PK']?>">
+							 	<td class="grab" style="display: none;">&#9776;</td>
 								<td><?php echo $srNo?>.</td>
 								<td><span class='diff_color'>Title:</span> <?php echo $streamTitle?><br><span class='diff_color'>Duration:</span> <?php echo $streamDuration?><br><span class='diff_color'>Subcategory:</span> <?php echo $subCatName?></td>
 								<!--<td><a href="<?php echo $streamsInfoArr[$i]['streamUrl']?>" class="view_all_contend" target='_blank' title='Stream URL'><?php echo $streamsInfoArr[$i]['streamUrl']?></a></td>-->								
@@ -317,3 +357,31 @@ include_once('video-player.php');
 ?>
 <!-- End of footer-->
 </div>
+<!-- <script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+<script>
+	function showSort(){
+		$(".grab").show();
+	    $(function () {
+		    $("#tblLocations").sortable({
+		        items: 'tr:not(tr:first-child)',
+		        cursor: 'pointer',
+		        axis: 'y',
+		        dropOnEmpty: false,
+		        start: function (e, ui) {
+		            ui.item.addClass("selected");
+		        },
+		        stop: function (e, ui) {
+		            ui.item.removeClass("selected");
+		            $(this).find("tr").each(function (index) {
+		                if (index > 0) {
+		                    $(this).find("td").eq(2).html(index);
+		                }
+		            });
+		        }
+		    });
+		});
+	}
+</script> -->
