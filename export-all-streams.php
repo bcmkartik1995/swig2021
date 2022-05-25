@@ -17,13 +17,14 @@
     $orderBY = "s.isStreamFeatured = 'Y' DESC, s.streamOrder ASC, sub.subCatName ASC, s.createdOn DESC";
     $streamsInfoArr = $objDBQuery->getRecord(0, array('*'), 'tbl_streams s, tbl_subcategories sub', $whereCls, '', '', $orderBY, '');
 
+    //echo "<pre>";print_r($streamsInfoArr);die;
     //file creation 
     $file = fopen('php://output', 'w');
 
     
     // generate dynamic header based on system languages
     // .......... START ............. 
-    $header = array("id","streamTitle","streamDuration","subCategory");
+    $header = array("streamTitle","streamPermalink","streamUrl","stream_logo","stream_logo_url","linearStreamDaiKey","linearStreamPlayingMethod", "streamImgPath","streamThumbnail","description","staring","streamTrailerUrl","duration","director","writter","editor","producer","genre","language","awards","rating","review","streamOrder","status");
 
     // .......... END ............. 
 
@@ -31,7 +32,10 @@
     $delimiter = ","; 
     foreach ($streamsInfoArr as $key=>$line){
 
-         $lineData = array($line["streamId_PK"],$line["streamTitle"],$line["streamDuration"],$line["subCatName"]);
+        if ($line["streamImg"] !='') $streamImgPath = HTTP_PATH."/uploads/stream_images/".$line["streamImg"];
+        else $streamImgPath = HTTP_PATH."/images/default_stream_poster.jpg";
+
+         $lineData = array($line["streamTitle"],$line["streamPermalink"],$line["streamUrl"],$line["stream_logo"],$line["stream_logo_url"], $line["linearStreamDaiKey"],$line["linearStreamPlayingMethod"],$streamImgPath, $line["streamThumbnail"], $line["streamdescription"], $line["staring"],$line["streamTrailerUrl"],$line["streamDuration"],$line["directedBy"],$line["writtenBy"],$line["stream_editor"],$line["producedBy"],$line["genre"],$line["language"],$line["awards"],$line["rating"],$line["review"],$line["streamOrder"],$line["status"]);
 
 
         fputcsv($file, $lineData, $delimiter); 
